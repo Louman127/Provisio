@@ -4,9 +4,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="style.css">
+<%@include file="topPage.jsp" %>
 <title>Insert title here</title>
 </head>
 <body>
+
+<h1>Existing Reservation Search</h1>
 
 </body>
 </html>

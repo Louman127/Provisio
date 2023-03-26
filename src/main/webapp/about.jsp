@@ -4,9 +4,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" href="style.css">
+<%@include file="topPage.jsp" %>
+<title>About</title>
 </head>
 <body>
+
+<h1>About</h1>
 
 </body>
 </html>
