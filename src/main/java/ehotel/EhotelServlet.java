@@ -26,9 +26,9 @@ import org.apache.catalina.connector.Response;
 public class EhotelServlet extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet{
 	private static final long serialVersionUID = 1L;
 	
-	public EhotelServlet() {
+	/*public EhotelServlet() {
 		super();
-	}
+	}*/
 	
 
 	
@@ -50,6 +50,11 @@ public class EhotelServlet extends javax.servlet.http.HttpServlet implements jav
 		String baseURL = "/Provisio/";
 		String indexPage = "index.jsp";
 		String reservationHome = baseURL + indexPage;
+		
+		response.sendRedirect(reservationHome);
+		
+		
+		// **** BELOW IS TEST CODE NOT TO BE USED ****
 		
 		//String action = request.getParameter("action");
 		
