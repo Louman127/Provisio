@@ -4,14 +4,16 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="PageStructure/style.css">
-<%@include file="PageStructure/topPage.jsp" %>
-<%@include file="PageStructure/bottomPage.jsp" %>
+<link rel="stylesheet" href="style.css">
 <title>Insert title here</title>
 </head>
 <body>
 
-<h1 class="pageTitle">Register</h1>
+	<footer id="footer">
+	    Copyright None
+
+
+	</footer>
 
 </body>
 </html>

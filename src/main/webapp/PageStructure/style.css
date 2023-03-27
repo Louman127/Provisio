@@ -1,0 +1,209 @@
+html, body{
+    font-family:  "Oswald", "Quattrocento", serif;
+    font-size: 16px;
+    color:white; 
+    background-color: lightsteelblue;
+}
+
+/* Header and header words positioning and style */
+
+#header {
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+    top: 0%;
+    position: fixed;
+    left: 0px;
+    width: 100%;
+    height: 210px;
+    /*padding-bottom: 0px;*/ 
+    background-color: rgba(222, 184, 135, 0.8);
+    color: white;
+    font-size: 20px;
+}
+
+#headerWords{
+    position: fixed;
+    left: 40%;
+}
+
+
+
+/* Commented out menu items class for testing NOT to be used
+.menuItems{
+    display: inline;
+    position: relative;
+    
+    margin-top: 30px;
+    padding: 12px;
+    background-color:rgba(21, 70, 153, .8);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 20px;
+    color: white; 
+}*/
+
+ /*MENU ITEMS */
+
+#menuDiv{
+    position: fixed;
+    top: 10%;
+    padding-left: 25%;
+    padding-right: 50px;
+    padding-top: 5px;
+}
+
+#menuDiv a:hover{
+    text-decoration:underline;
+    cursor: pointer;
+    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
+}
+
+#indexItem{
+    display: inline-block;
+    
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color:rgba(21, 70, 153, .8);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 20px;
+    color: white; 
+}
+
+#aboutItem{
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color:rgba(21, 70, 153, .8);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 20px;
+    color: white; 
+}
+
+#locationsItem{
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color:rgba(21, 70, 153, .8);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 20px;
+    color: white; 
+}
+
+#loyaltyItem{
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color:rgba(21, 70, 153, .8);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 20px;
+    color: white; 
+}
+
+/* Commented out left bar and right bar items for testing NOT to be used
+#signin{
+    position: absolute;
+    margin-left: 5%;
+    bottom: 70%;
+}
+
+#register{
+    position: absolute;
+    margin-left: 5%;
+    bottom: 50%;
+   
+}*/
+
+/*
+#contact{
+    position: absolute;
+    margin-left: 70%;
+    bottom: 90%;    
+}
+
+#existingRev{
+    position: absolute;
+    margin-left: 70%;
+    bottom: 85%;
+}
+
+#lang{
+    position: absolute;
+    margin-left: 80%;
+    bottom: 87%;
+}
+
+#langLabel{
+    
+    position: absolute;
+    margin-left: 80%;
+    bottom: 90%;
+}*/
+
+/* Left bar and right bar */
+#leftbar{
+
+    position: fixed;
+    padding-bottom: 100px;
+    padding-right: 100px;
+    padding-left: 100px;
+    top: 0%;
+    padding-top: 20px;
+}
+
+#rightbar{
+    position: fixed;
+    margin-left: 80%;
+    top: 0%;    
+    padding-top: 20px;
+}
+
+/* This positioning will keep content under the header */
+#paraDiv{
+    padding-top: 260px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 40px;
+    /*padding-bottom: 374px;*/
+}
+
+#pageContainter{
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-bottom: 60px;
+}
+
+.pageTitle{
+    padding-top: 220px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 20px;
+    /*padding-bottom: 374px;*/
+}
+
+
+/* Footer positioning and style */
+
+#footer{
+    position: fixed;
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /*padding-left: 8px;*/
+    /*padding-right: 8px;*/
+    /*margin-top: auto;*/
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    left: 0;
+    background-color: rgba(222, 184, 135, 0.8);
+    color: white;
+    font-size: 20px;
+}
