@@ -174,11 +174,19 @@ html, body{
     /*padding-bottom: 374px;*/
 }
 
-#pageContainter{
+#pageContainterIndex{
     margin-left: 10%;
     margin-right: 10%;
     padding-bottom: 60px;
 }
+
+#pageContainterAbout{
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-bottom: 0px;
+}
+
+
 
 .pageTitle{
     padding-top: 220px;
@@ -206,4 +214,24 @@ html, body{
     background-color: rgba(222, 184, 135, 0.8);
     color: white;
     font-size: 20px;
+}
+
+#hotel_room{
+	max-height: 40%;
+	max-width: 40%;
+	display: inline;
+	float: left;
+	
+	
+}
+
+#aboutPara1{
+	display: inline;
+	float: right;
+	padding-right: 120px;
+	max-height: 500px;
+	max-width: 500px;
+	
+	
+	
 }
