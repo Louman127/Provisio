@@ -11,7 +11,7 @@
 
 
 	<header id="header">
-		<h1 id="headerWords">Provisio</h1>
+		<h1 id="headerWords"> <img src="PageStructure/provisio_200_1.gif"> </h1>
 	</header>
 
 	<div id="leftbar">
@@ -61,17 +61,6 @@
 		</select>	
 
 	</div>
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

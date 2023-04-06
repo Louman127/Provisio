@@ -1,11 +1,9 @@
-html, body{
+body{
     font-family:  "Oswald", "Quattrocento", serif;
     font-size: 16px;
     color:white; 
     background-color: lightsteelblue;
 }
-
-/* Header and header words positioning and style */
 
 #header {
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
@@ -14,7 +12,6 @@ html, body{
     left: 0px;
     width: 100%;
     height: 210px;
-    /*padding-bottom: 0px;*/ 
     background-color: rgba(222, 184, 135, 0.8);
     color: white;
     font-size: 20px;
@@ -24,8 +21,6 @@ html, body{
     position: fixed;
     left: 40%;
 }
-
-
 
 /* Commented out menu items class for testing NOT to be used
 .menuItems{
@@ -45,14 +40,16 @@ html, body{
  /*MENU ITEMS */
 
 #menuDiv{
+    /*z-index: 1000;*/
     position: fixed;
     top: 10%;
     padding-left: 25%;
     padding-right: 50px;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 
 #menuDiv a:hover{
+	
     text-decoration:underline;
     cursor: pointer;
     text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
@@ -60,18 +57,19 @@ html, body{
 
 #indexItem{
     display: inline-block;
-    
     margin-right: 10px;
     margin-bottom: 10px;
     background-color:rgba(21, 70, 153, .8);
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     text-decoration: none;
-    padding: 20px;
-    color: white; 
+    padding: 5px;
+    color: white;
+    
 }
 
 #aboutItem{
+	
     display: inline-block;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -79,11 +77,14 @@ html, body{
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     text-decoration: none;
-    padding: 20px;
+    padding: 5px;
     color: white; 
+    
+     
 }
 
 #locationsItem{
+
     display: inline-block;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -91,11 +92,13 @@ html, body{
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     text-decoration: none;
-    padding: 20px;
-    color: white; 
+    padding: 5px;
+    color: white;  
 }
 
 #loyaltyItem{
+
+    
     display: inline-block;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -103,53 +106,13 @@ html, body{
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     text-decoration: none;
-    padding: 20px;
-    color: white; 
+    padding: 5px;
+    color: white 
 }
 
-/* Commented out left bar and right bar items for testing NOT to be used
-#signin{
-    position: absolute;
-    margin-left: 5%;
-    bottom: 70%;
-}
 
-#register{
-    position: absolute;
-    margin-left: 5%;
-    bottom: 50%;
-   
-}*/
-
-/*
-#contact{
-    position: absolute;
-    margin-left: 70%;
-    bottom: 90%;    
-}
-
-#existingRev{
-    position: absolute;
-    margin-left: 70%;
-    bottom: 85%;
-}
-
-#lang{
-    position: absolute;
-    margin-left: 80%;
-    bottom: 87%;
-}
-
-#langLabel{
-    
-    position: absolute;
-    margin-left: 80%;
-    bottom: 90%;
-}*/
-
-/* Left bar and right bar */
 #leftbar{
-
+	
     position: fixed;
     padding-bottom: 100px;
     padding-right: 100px;
@@ -159,25 +122,26 @@ html, body{
 }
 
 #rightbar{
+	
     position: fixed;
     margin-left: 80%;
     top: 0%;    
     padding-top: 20px;
 }
 
-/* This positioning will keep content under the header */
+
 #paraDiv{
     padding-top: 260px;
     padding-left: 10%;
     padding-right: 10%;
     padding-bottom: 40px;
-    /*padding-bottom: 374px;*/
 }
 
 #pageContainterIndex{
     margin-left: 10%;
     margin-right: 10%;
-    padding-bottom: 60px;
+    margin-top: 2%; 
+    padding-bottom: 40px;
 }
 
 #pageContainterAbout{
@@ -187,33 +151,33 @@ html, body{
 }
 
 
-
 .pageTitle{
+    
+
     padding-top: 220px;
-    padding-left: 10%;
+    padding-left: 45%;
     padding-right: 10%;
     padding-bottom: 20px;
-    /*padding-bottom: 374px;*/
+    
+
 }
 
-
-/* Footer positioning and style */
-
 #footer{
-    position: fixed;
+	
+
+	position: fixed;
     box-sizing: border-box;
+    box-shadow: 5px 0px 10px 5px rgba(0, 0, 0, 0.2);
     padding-top: 10px;
     padding-bottom: 10px;
-    /*padding-left: 8px;*/
-    /*padding-right: 8px;*/
-    /*margin-top: auto;*/
     bottom: 0;
     text-align: center;
     width: 100%;
     left: 0;
     background-color: rgba(222, 184, 135, 0.8);
     color: white;
-    font-size: 20px;
+    font-size: 10pt;
+	
 }
 
 #hotel_room{
@@ -232,6 +196,58 @@ html, body{
 	max-height: 500px;
 	max-width: 500px;
 	
-	
-	
 }
+
+
+#mainpic {
+	margin-top: 0px;
+	float: left;
+    margin-right: 39.5%;
+    margin-left: 1%;
+}
+
+/*
+#wrapper{
+    margin: auto;
+    height: auto;
+    position: relative;
+}*/
+
+#addlink {
+	border-radius: 5px 10px 5px 10px;
+	background-color: rgba(222, 184, 135, 0.8);
+	padding: 10px;
+	position: absolute;
+	/*top: 65vh;
+	left: 3vw;*/
+
+	text-align: center;
+	font-size: 16pt;
+
+	color: yellow;
+
+}
+
+
+#searchdiv {
+	
+	position: absolute;
+    align-content: center;
+    transform: translate(250%, 20%);
+    border:  1px solid black;
+    background-color: rgba(222, 184, 135, 0.8);
+    border-radius: 5px 10px 5px 10px;
+    box-shadow: 5px 5px 5px 5px darkgray;
+}
+
+#searchform {
+    font-size: 12pt;
+    padding-left: 5px;
+}
+
+
+.asterik{
+    color: red;
+}
+
+
