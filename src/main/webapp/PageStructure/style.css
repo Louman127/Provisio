@@ -216,18 +216,17 @@ body{
 #addlink {
 	border-radius: 5px 10px 5px 10px;
 	background-color: rgba(222, 184, 135, 0.8);
-	padding: 10px;
+	padding: 4px;
 	position: absolute;
 	/*top: 65vh;
 	left: 3vw;*/
-
+	margin-top: -100px;
 	text-align: center;
-	font-size: 16pt;
+	font-size: 14pt;
 
 	color: yellow;
 
 }
-
 
 #searchdiv {
 	
@@ -250,4 +249,30 @@ body{
     color: red;
 }
 
+#signinPageContainer{
+	
+}
 
+#signinFormDiv{
+	display: inline-block;
+	margin-left: 40%;
+	padding: 80px;
+	border-radius: 50px;
+	box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+	background-color:rgba(21, 70, 153, .8);
+	
+}
+
+#registerPageContainer{
+	padding-bottom: 200px;
+}
+
+#register-formDiv{
+	display: inline-block;
+	margin-top: -20px;
+	margin-left: 40%;
+	padding: 80px;
+	border-radius: 50px;
+	box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
+	background-color:rgba(21, 70, 153, .8);
+}

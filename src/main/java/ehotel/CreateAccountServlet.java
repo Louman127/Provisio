@@ -17,46 +17,37 @@ import javax.servlet.http.HttpSession;
 import com.mysql.cj.MysqlxSession;
 import com.mysql.cj.Session;
 
-/**
- * Servlet implementation class LoginServlet
- */
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/CreateAccountServlet")
+
+public class CreateAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
+    public CreateAccountServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//doGet(request, response);
 		//response.setContentType("text/html");
-		
 		PrintWriter out = response.getWriter();
+		String fname = request.getParameter("fname");
+		String lname = request.getParameter("lname");	
 		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String country = request.getParameter("country");
+		String zip = request.getParameter("zip");
 		String password = request.getParameter("password");
+		int loyaltyPoints = 0;
 		
 		String hashedPassword = Hash.generate(password);
 		
 		try {
-			//Class.forName("com.mysql.cj.jdbc.Driver");
-			//Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/provisio_db","prov_user", "provisio");
-
+			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String dbUrl = "jdbc:mysql://localhost:3306/provisio_db";
 			String userName = "prov_user";
@@ -65,32 +56,33 @@ public class LoginServlet extends HttpServlet {
 			Statement stm = con.createStatement();
 			stm.execute("use provisio_db");
 			
-			ResultSet rs = stm.executeQuery("select * from users where users.email = '" + email + "' and users.pass = '" + hashedPassword + "'");
-			if(rs.next()) {
-				// if username and password are true then go to successful login page
-				//response.sendRedirect("index.jsp");
+			try {
 				
-				HttpSession session = request.getSession(true);
+				stm.execute("INSERT INTO users (first_name, last_name, email, phone, country, zip, pass, loyalty_points) " 
+				+ "VALUES ('" + fname + "','" + lname + "','" + email + "','" + phone + "','" + country + "','" + zip + "','" 
+				+ hashedPassword + "','" + loyaltyPoints + "')");
 				
-				// this will be for the sign out button in JavaScript so we can session.invalidate() when they sign out
-				session.setAttribute("Loggedin", "true"); 
-
-				System.out.println("You are signed in");
-				String baseURL = "/Provisio/";
-				String indexPage = "index.jsp";
-				String reservationHome = baseURL + indexPage;
-				response.sendRedirect(reservationHome);
-					
+				System.out.println("Your Account is Created");
+				out.println("<script type=\"text/javascript\">");
+	            out.println("alert('Your Account is Created.\\nPlease Sign-in.');");
+	            out.println("location='/Provisio/signin.jsp';"); 
+	            out.println("</script>");
+				
+				//String baseURL = "/Provisio_copy/";
+				//String signinPage = "signin.jsp";
+				//String routeToSignin = baseURL + signinPage;
+				//response.sendRedirect(routeToSignin);
+			
 			}
-			else {
-
+			catch (Exception e) {
 				out.println("Invalid username and passowrd.");
-				
 			}
+			
 			con.close();
 			
-		} catch(Exception e) {
-			System.out.println("You are not signed in");
+		} 
+		catch(Exception e) {
+			System.out.println("You are not signed into the database");
 			System.out.println(e.getMessage());
 		}
 	}
