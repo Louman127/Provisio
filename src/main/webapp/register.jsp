@@ -10,7 +10,7 @@
 <%@include file="PageStructure/bottomPage.jsp"%>
 <%@page import="java.sql.*,java.util.*"%>
 
-<title>Insert title here</title>
+<title>Register Account</title>
 </head>
 <body>
 
@@ -26,21 +26,25 @@
 
 			<form id=registerform action="CreateAccountServlet" method="post">
 
-				<label>First Name:</label><br> <input type="text" name="fname" />
+				<label>First Name:</label><br> <input type="text" name="fname" required="required"/>
 				<br>
 				<br> <label>Last Name:</label><br> <input type="text"
-					name="lname" /> <br>
+					name="lname" required="required"/> <br>
 				<br> <label>Email:</label><br> <input type="text"
-					name="email" /><br>
+					name="email" required="required"/><br>
 				<br> <label>Phone:</label><br> <input type="text"
-					name="phone" /><br>
+					name="phone" required="required"/><br>
 				<br> <label>Country:</label><br> <input type="text"
-					name="country" /> <br>
-				<br> <label>Zip:</label><br> <input type="text" name="zip" />
+					name="country" required="required"/> <br>
+				<br> <label>Zip:</label><br> <input type="text" name="zip" required="required"/>
 				<br>
-				<br> <label>Password:</label><br> <input type="password"
-					name="password" /> <br><br>
-				<input type="submit" />
+				<br> <label>Password: <br>At least 8 characters with 1 upper and 1 lowercase letter</label><br> <input type="password"
+					name="password" required="required" pattern="^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\\d]{8,}$"/> <br>
+				
+				<br> <label>Confirm Password:</label><br> <input type="password"
+					name="passwordConfirm" required="required" pattern="^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\\d]{8,}$"/> <br><br>
+					
+				<input type="submit"/>
 				
 				<br><br> or <a href="signin.jsp"> Sign In </a>
 

@@ -92,3 +92,16 @@
 
 </body>
 </html>
+
+<%-- 
+
+References that can help:
+
+https://stackoverflow.com/questions/24759384/checking-if-user-is-logged-in-or-not-using-sessions-java-servlet
+
+https://coderanch.com/t/657132/databases/session-setAttribute-save-data-database
+
+https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+
+
+--%>

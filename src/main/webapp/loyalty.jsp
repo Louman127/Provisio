@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="PageStructure/style.css">
 <%@include file="PageStructure/topPage.jsp" %>
 <%@include file="PageStructure/bottomPage.jsp" %>
-<title>Insert title here</title>
+<title>Loyalty Points</title>
 </head>
 <body>
 

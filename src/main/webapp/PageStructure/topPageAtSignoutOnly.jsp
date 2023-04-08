@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,55 +10,19 @@
 <body>
 
 
-<% 
-
-Connection con = (Connection) session.getAttribute("Loggedin");  
-if (con != null){
-
-%>
-
 	<header id="header">
 		<h1 id="headerWords"> <img src="PageStructure/provisio_200_1.gif"> </h1>
 	</header>
 
 	<div id="leftbar">
 
-		<a href="signout.jsp" id="signin">Sign out</a>
+		<a href="signin.jsp" id="signin">Sign In</a>
+		<br/>
+		<br/>	
+		<a href="register.jsp" id="register">or Register</a><br />
 
 	</div>
 
-
-<%
-}else{%>
-	<header id="header">
-	<h1 id="headerWords"> <img src="PageStructure/provisio_200_1.gif"> </h1>
-</header>
-
-<div id="leftbar">
-
-	<a href="signin.jsp" id="signin">Sign In</a>
-	<br/>
-	<br/>	
-	<a href="register.jsp" id="register">or Register</a><br />
-
-</div>
-<%
-}
-%>
-
-<!--
-	<div id="menuDiv">
-
-		<a href="index.jsp" class="menuItems">Reservations</a> 
-		<a href="about.jsp" class="menuItems">About</a> 
-		<a href="locations.jsp" class="menuItems">Locations</a> 
-		<a href="loyalty.jsp" class="menuItems">Loyalty Points</a>
-
-
-	</div>
-
-	-->
-		<!-- This menuDiv uses seperate id's rather than grouping menu items into class -->
 	<div id="menuDiv">
 
 		<a href="index.jsp" id="indexItem">Reservations</a> 
