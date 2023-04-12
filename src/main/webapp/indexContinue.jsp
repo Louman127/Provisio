@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Confirmation</title>
+<title>Provisio Home</title>
 
 <link rel="stylesheet" href="PageStructure/style.css" media="screen">
 <%@include file="PageStructure/topPage.jsp"%>
@@ -13,9 +13,11 @@
 
 </head>
 <body>
-<h1 class="pageTitle">Confirmation</h1>
+
 	<%
 	
+	
+
 	String arrive = "";
 	String depart = "";
 	String adults = "";
@@ -98,8 +100,8 @@
 								#posterIndex{
 									display: inline-block;
 									padding: 40px;
-									margin-top: -30px;
-									margin-left: 30%;
+									margin-top: 240px;
+									margin-left: 20%;
 									background-color:rgba(21, 70, 153, .8);
 									margin-bottom: 40px;
 									border-radius: 10px 10px 10px 10px;
@@ -166,7 +168,25 @@
 				   Studios.  And it just wouldn't be an official Orlando visit without<br>
 				   going to Sea World!</p>
 				   
-				   <p> Reservation Booked<br></p>
+				   <p> Would you like to Book this reservation?<br></p>
+
+					<%Connection conn = (Connection) session.getAttribute("Loggedin");%>
+					
+					<% if (conn == null) { %>
+					    <p>Please sign in</p>
+					    
+					    <form action="signin.jsp" method="get">
+				    		<button type="submit">Sign In</button>
+						</form>
+					<% 
+					}
+					else{%>
+						<form action="confirmation.jsp" method="get">
+				    		<button type="submit">Book!</button>
+						</form>
+					<%	
+					}
+					%>
 													
 <%
 
@@ -180,8 +200,8 @@
 								#posterIndex{
 									display: inline-block;
 									padding: 40px;
-									margin-top: -30px;
-									margin-left: 30%;
+									margin-top: 240px;
+									margin-left: 20%;
 									background-color:rgba(21, 70, 153, .8);
 									margin-bottom: 40px;
 									border-radius: 10px 10px 10px 10px;
@@ -250,7 +270,25 @@
 				   District which is host to downtown night life, or visit the beautiful<br>
 				   Lauritzen Gardens.</p>
 				      
-				  <p> Reservation Booked<br></p>
+				  <p> Would you like to Book this reservation?<br></p>
+
+					<%Connection conn = (Connection) session.getAttribute("Loggedin");%>
+					
+					<% if (conn == null) { %>
+					    <p>Please sign in</p>
+					       
+					    <form action="signin.jsp" method="get">
+				    		<button type="submit">Sign In</button>
+						</form>
+					<% 
+					}
+					else{%>
+						<form action="confirmation.jsp" method="get">
+				    		<button type="submit">Book!</button>
+						</form>
+					<%	
+					}
+					%>
 				   
 <%
 }			
@@ -262,8 +300,8 @@
 								#posterIndex{
 									display: inline-block;
 									padding: 40px;
-									margin-top: -30px;
-									margin-left: 30%;
+									margin-top: 240px;
+									margin-left: 20%;
 									background-color:rgba(21, 70, 153, .8);
 									margin-bottom: 40px;
 									border-radius: 10px 10px 10px 10px;
@@ -333,8 +371,29 @@
 				   motorized river float!
 				   </p>
 				    
-				   <p> Reservation Booked<br></p>
+				   <p> Would you like to Book this reservation?<br></p>
 
+					
+					<%Connection conn = (Connection) session.getAttribute("Loggedin");%>
+					
+					<% if (conn == null) { %>
+					    <p>Please sign in</p>
+					    
+					    <form action="signin.jsp" method="get">
+				    		<button type="submit">Sign In</button>
+						</form>
+					
+					<% 
+					}
+					else{%>
+						
+						<form action="confirmation.jsp" method="get">
+				    		<button type="submit">Book!</button>
+						</form>
+				
+					<%	
+					}
+					%>
 	
 <%
 }			
