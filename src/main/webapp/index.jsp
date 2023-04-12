@@ -46,7 +46,7 @@
 						<select name="properties">
 								
 								<option value="selection">Select a Property </option>
-								<option value="orlando">Orlando,</option>
+								<option value="orlando">Orlando, FL</option>
 								<option value="omaha">Omaha, NE</option>
 								<option value="grand">Grand Canyon Village, AZ</option>
 								
