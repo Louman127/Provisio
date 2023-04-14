@@ -52,9 +52,9 @@ public class LoginServlet extends HttpServlet {
 			if(rs.next()) {
 				// if username and password are true then go to successful login page
 				
-				// Creating session
-				HttpSession session = request.getSession(true);
-				
+				// Do not need to create a new one
+				HttpSession session = request.getSession(false);
+				session.setAttribute("email", email);
 				// this will be for the sign out button so we can session.invalidate() when they sign out
 				session.setAttribute("Loggedin", con); 
 

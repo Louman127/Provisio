@@ -54,7 +54,7 @@ public class LoginServletContinue extends HttpServlet {
 				
 				// Creating session
 				HttpSession session = request.getSession(false);
-				
+				session.setAttribute("email", email);
 				// this will be for the sign out button so we can session.invalidate() when they sign out
 				session.setAttribute("Loggedin", con); 
 

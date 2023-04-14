@@ -1,6 +1,12 @@
+<%@page import="com.mysql.cj.x.protobuf.MysqlxSql.StmtExecute"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.io.PrintWriter"%>
+<%@page import="java.sql.*"%>
+<%@page import="java.lang.Double"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,83 +22,124 @@
 <h1 class="pageTitle">Confirmation</h1>
 	<%
 	
-	String arrive = "";
-	String depart = "";
-	String adults = "";
-	String kids = "";
-	String rooms = "";
-	String rm_size = "";
-	String wifiCheckBox = "";
-	String breakfastCheckBox = "";
-	String parkingCheckBox = "";
-
-	int id;
-	String hotel = "";
-	String country = "US";
-	String stAddressFL = "777 Wonderful Street";
-	String stAddressNE = "123 Grand Street";
-	String stAddressAZ = "789 Happy Street";
-
+	HttpSession session1 = request.getSession(false);
+	con = (Connection) session1.getAttribute("Loggedin");
+	Statement stmt = con.createStatement();
+	
 	String state = "";
 	String city = "";
 	String zip = "";
 	String phone = "";
-
+	String country = "US";
+	String stAddressFL = "777 Wonderful Street";
+	String stAddressNE = "123 Grand Street";
+	String stAddressAZ = "789 Happy Street";
 	String hotelFL = "Florida Provisio Hotel";
 	String hotelNE = "Nebraska Provisio Hotel";
 	String hotelAZ = "Arizona Provisio Hotel";
-
-	// Getting parameters from HTML
-	//String prop = request.getParameter("properties");
 	
-	HttpSession session1 = request.getSession(false);
+	String wifiCheckBox = (String) session1.getAttribute("wifi");
+	String breakfastCheckBox = (String) session1.getAttribute("breakfast");
+	String parkingCheckBox = (String) session1.getAttribute("parking");
+
+	int wifiForSQL = 0; //Integer.valueOf(wifiCheckBox);
+	int breakfastForSQL = 0; //Integer.valueOf(breakfastCheckBox);
+	int parkingForSQL = 0; //Integer.valueOf(parkingCheckBox);
+	
+	if(wifiCheckBox != null){
+		wifiForSQL = 1;
+	}
+	if(breakfastCheckBox != null){
+		breakfastForSQL = 1;
+	}
+	if(parkingCheckBox != null){
+		parkingForSQL = 1;
+	}
 	
 	String destination = (String) session1.getAttribute("properties");
-	
-	//String prop = (String) session1.getAttribute("properties");
-	
 	String select = (String) session1.getAttribute("selection");
-	
 	String orlando = (String) session1.getAttribute("orlando");
-	
 	String omaha = (String) session1.getAttribute("omaha");
-	
 	String grand = (String) session1.getAttribute("grand");
+	String arrive = (String) session1.getAttribute("start");
+	String depart = (String) session1.getAttribute("finish");
+	String adults = (String) session1.getAttribute("grown");
+	String kids = (String) session1.getAttribute("babies");
+	String rm_size = (String) session1.getAttribute("rm_size");
 	
-	arrive = (String) session1.getAttribute("start");
+	int room_sizeInt = Integer.valueOf(rm_size);
+	String roomSizeDisplay = "";
+	if(room_sizeInt == 4){
+		roomSizeDisplay = "Double";
+		
+	}
+	if(room_sizeInt == 3){
+		roomSizeDisplay = "Queen";
+		
+	}
+	if(room_sizeInt == 2){
+		roomSizeDisplay = "Double Queen";
+		
+	}
+	if(room_sizeInt == 1){
+		roomSizeDisplay = "King";
+		
+	}
 	
-	depart = (String) session1.getAttribute("finish");
 	
-	adults = (String) session1.getAttribute("grown");
+	// For SQL insertion
+	int numberOfGuests = Integer.valueOf(adults) +  Integer.valueOf(kids);
 	
-	kids = (String) session1.getAttribute("babies");
+	//int roomSizer = Integer.parseInt(rm_size);
+	String email = (String) session1.getAttribute("email");
 	
-	rooms = (String) session1.getAttribute("rooms");
+	int user_id = 0;
+	Double roomAmt = 0.00;
 	
-	rm_size = (String) session1.getAttribute("rm_size");
+	//int departInt = Integer.valueOf(depart);
+	//int arriveInt = Integer.valueOf(arrive);
+	//DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+	LocalDate dateIn = LocalDate.parse(arrive);
+	LocalDate dateOut = LocalDate.parse(depart);
 	
-	/*
-	out.println(destination);
-	out.println(select);
-	out.println(orlando);
-	out.println(omaha);
-	out.println(grand);
-	out.println(arrive);
-	out.println(depart);
-	out.println(adults);
-	out.println(kids);
-	out.println(rooms);
-	out.println(rm_size);*/
-
+	int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
+	
+	
+	// ResultSet rs = stmt.executeQuery("SELECT users.email, users.user_id FROM users WHERE email = users.email;");
+	
+	try{
+		ResultSet rs = stmt.executeQuery("SELECT users.email, users.user_id FROM users WHERE '" + email + "' = users.email;");
+		if(rs.next()){
+			user_id = rs.getInt(2);	
+		}
+		
+		System.out.println("user_id is " + user_id);
+	
+	}
+	catch (Exception e){
+		System.out.println(e);
+	}
+	
+	
+	try{
+		ResultSet rs = stmt.executeQuery("SELECT rooms.room_amount FROM rooms WHERE room_id = " + room_sizeInt);
+		if(rs.next()){
+			roomAmt = rs.getDouble(1);	
+		}
+		
+		System.out.println("room amount is " + roomAmt);
+	
+	}
+	catch (Exception e){
+		System.out.println(e);
+	}
+	
 	%>
 	
-
-
-
 		<div id="posterIndex">
 		
 		<%
-		if (destination.equalsIgnoreCase("orlando")) {
+		if (destination.equalsIgnoreCase("orlando")) {	
 		%>
 							<style>
 								#posterIndex{
@@ -130,32 +177,44 @@
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
-				<B>Number of Rooms: <%out.println(rooms); %></B>
+				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
-				<B>Room Size: <%out.println(rm_size); %></B>
+				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
 				<br>
 				<B>Amenities:</B><br>
 				<br>
 				<%
 				
-				wifiCheckBox = request.getParameter("wifi");
-				breakfastCheckBox = request.getParameter("breakfast");
-				parkingCheckBox = request.getParameter("parking");
+
+				roomAmt = roomAmt * nightsStaying;
+				int loyalty_points_earned = 150;
+				loyalty_points_earned = loyalty_points_earned * nightsStaying;
+				stmt.executeUpdate("UPDATE users SET loyalty_points = loyalty_points + " + loyalty_points_earned + " WHERE user_id = " + user_id);
 				
 				if (wifiCheckBox != null) {
 					 
 					out.println(wifiCheckBox);
+					Double wifiPrice = 12.99;
+					roomAmt = roomAmt + wifiPrice;
+					
 				}
 		
 				if (breakfastCheckBox != null) {
 					
 					out.println(breakfastCheckBox);
+					Double breakfastPrice = 8.99 * nightsStaying;
+					roomAmt = roomAmt + breakfastPrice;
 				}
 		
 				if (parkingCheckBox != null) {
 					
 					out.println(parkingCheckBox);
+					Double parkingPrice = 19.99 * nightsStaying;
+					roomAmt = roomAmt + parkingPrice;
 				}
+				System.out.println(roomAmt);
+				stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, price_total)" 
+				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 1 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmt + "')");
 				
 				%>
 				<br><br>
@@ -211,32 +270,43 @@
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
-				<B>Number of Rooms: <%out.println(rooms); %></B>
+				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
-				<B>Room Size: <%out.println(rm_size); %></B>
+				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
 				<br>
 				<B>Amenities:</B><br>
 				<br>
 				<%
 				
-				wifiCheckBox = request.getParameter("wifi");
-				breakfastCheckBox = request.getParameter("breakfast");
-				parkingCheckBox = request.getParameter("parking");
+				roomAmt = roomAmt * nightsStaying;
+				int loyalty_points_earned = 150;
+				loyalty_points_earned = loyalty_points_earned * nightsStaying;
+				stmt.executeUpdate("UPDATE users SET loyalty_points = loyalty_points + " + loyalty_points_earned + " WHERE user_id = " + user_id);
 				
 				if (wifiCheckBox != null) {
 					 
 					out.println(wifiCheckBox);
+					Double wifiPrice = 12.99;
+					roomAmt = roomAmt + wifiPrice;
+					
 				}
 		
 				if (breakfastCheckBox != null) {
 					
 					out.println(breakfastCheckBox);
+					Double breakfastPrice = 8.99 * nightsStaying;
+					roomAmt = roomAmt + breakfastPrice;
 				}
 		
 				if (parkingCheckBox != null) {
 					
 					out.println(parkingCheckBox);
+					Double parkingPrice = 19.99 * nightsStaying;
+					roomAmt = roomAmt + parkingPrice;
 				}
+				System.out.println(roomAmt);
+				stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, price_total)" 
+				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 2 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmt + "')");
 				
 				%>
 				<br><br>
@@ -293,32 +363,43 @@
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
-				<B>Number of Rooms: <%out.println(rooms); %></B>
+				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
-				<B>Room Size: <%out.println(rm_size); %></B>
+				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
 				<br>
 				<B>Amenities:</B><br>
 				<br>
 				<%
 				
-				wifiCheckBox = request.getParameter("wifi");
-				breakfastCheckBox = request.getParameter("breakfast");
-				parkingCheckBox = request.getParameter("parking");
+				roomAmt = roomAmt * nightsStaying;
+				int loyalty_points_earned = 150;
+				loyalty_points_earned = loyalty_points_earned * nightsStaying;
+				stmt.executeUpdate("UPDATE users SET loyalty_points = loyalty_points + " + loyalty_points_earned + " WHERE user_id = " + user_id);
 				
 				if (wifiCheckBox != null) {
 					 
 					out.println(wifiCheckBox);
+					Double wifiPrice = 12.99;
+					roomAmt = roomAmt + wifiPrice;
+					
 				}
 		
 				if (breakfastCheckBox != null) {
 					
 					out.println(breakfastCheckBox);
+					Double breakfastPrice = 8.99 * nightsStaying;
+					roomAmt = roomAmt + breakfastPrice;
 				}
 		
 				if (parkingCheckBox != null) {
 					
 					out.println(parkingCheckBox);
+					Double parkingPrice = 19.99 * nightsStaying;
+					roomAmt = roomAmt + parkingPrice;
 				}
+				System.out.println(roomAmt);
+				stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, price_total)" 
+				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 3 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmt + "')");
 				
 				%>
 				<br><br>

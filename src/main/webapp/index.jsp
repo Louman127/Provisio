@@ -69,21 +69,24 @@
 								<br><input type="number" name="babies" size="3" required="required"></label>
 						</td>
 					</tr>
+					
+					<!--  
 					<tr>
 						<td><label><strong class="asterik">*</strong>Number
 								of Rooms <br><input type="number" name="rooms" size="3"
 								required="required"></label></td>
-					</tr>
+					</tr>-->
+					
 					<tr>
 											
 						<td><br><label><strong class="asterik">*</strong>Room Size</label><br> 
 								
 						<select name="rm_size">
 								
-								<option value="Double">Double $115.00</option>
-								<option value="Queen">Queen $125.00</option>
-								<option value="Double Queen">Double Queen $150.00</option>
-								<option value="King">King $165.00</option>
+								<option value="4">Double $115.00</option>
+								<option value="3">Queen $125.00</option>
+								<option value="2">Double Queen $150.00</option>
+								<option value="1">King $165.00</option>
 								
 
 						</select></td>
@@ -118,49 +121,82 @@
 		<div id="posterIndex">
 		
 		<%
+		if(request.getMethod().equals("POST")){
 		destination = request.getParameter("properties");
 		
 		// Getting parameters from HTML and setting to session
 		
 		HttpSession session1 = request.getSession(true);
 		
-		String arrive = "";
-		String depart = "";
-		String adults = "";
-		String kids = "";
-		String rooms = "";
-		String rm_size = "";
-		String wifiCheckBox = "";
-		String breakfastCheckBox = "";
-		String parkingCheckBox = "";
-
-		int id;
-		String hotel = "";
-		String country = "US";
-		String stAddressFL = "777 Wonderful Street";
-		String stAddressNE = "123 Grand Street";
-		String stAddressAZ = "789 Happy Street";
+		//con = (Connection) session1.getAttribute("Loggedin");
+		
+		
+		//Statement stmt = con.createStatement();
+		/*stmt.executeQuery("");*/
+		
+		try{
+			con = (Connection) session1.getAttribute("Loggedin");
+			if (con != null){
+				System.out.print(session1);
+			}
+			else{
+				System.out.println("No connection to DB");
+			}
+			
+			Statement stmt = con.createStatement();
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
 		
 		String state = "";
 		String city = "";
 		String zip = "";
 		String phone = "";
-		
+		String country = "US";
+		String stAddressFL = "777 Wonderful Street";
+		String stAddressNE = "123 Grand Street";
+		String stAddressAZ = "789 Happy Street";
 		String hotelFL = "Florida Provisio Hotel";
 		String hotelNE = "Nebraska Provisio Hotel";
 		String hotelAZ = "Arizona Provisio Hotel";
+		
+		String wifiCheckBox = request.getParameter("wifi");
+		String breakfastCheckBox = request.getParameter("breakfast");
+		String parkingCheckBox = request.getParameter("parking");
 		
 		destination = request.getParameter("properties");
 		select = request.getParameter("selection");
 		orlando = request.getParameter("orlando");
 		omaha = request.getParameter("omaha");
 		grand = request.getParameter("grand");
-		arrive = request.getParameter("start");
-		depart = request.getParameter("finish");
-		adults = request.getParameter("grown");
-		kids = request.getParameter("babies");
-		rooms = request.getParameter("rooms");
-		rm_size = request.getParameter("rm_size");
+		
+		String arrive = request.getParameter("start");
+		String depart = request.getParameter("finish");
+		String adults = request.getParameter("grown");
+		String kids = request.getParameter("babies");
+		String rooms = request.getParameter("rooms");
+		
+		String rm_size = request.getParameter("rm_size");
+		
+		int room_sizeInt = Integer.valueOf(rm_size);
+		String roomSizeDisplay = "";
+		if(room_sizeInt == 4){
+			roomSizeDisplay = "Double";
+			
+		}
+		if(room_sizeInt == 3){
+			roomSizeDisplay = "Queen";
+			
+		}
+		if(room_sizeInt == 2){
+			roomSizeDisplay = "Double Queen";
+			
+		}
+		if(room_sizeInt == 1){
+			roomSizeDisplay = "King";
+			
+		}
 		
 		session1.setAttribute("properties", destination);
 		session1.setAttribute("selection", select);
@@ -171,10 +207,9 @@
 		session1.setAttribute("finish", depart);
 		session1.setAttribute("grown", adults);
 		session1.setAttribute("babies", kids);
-		session1.setAttribute("rooms", rooms);
 		session1.setAttribute("rm_size", rm_size);
 		
-		if(request.getMethod().equals("POST") && destination.equalsIgnoreCase("selection")){
+		if(destination.equalsIgnoreCase("selection")){
 			System.out.println("Please make a valid selection.");
 			out.println("Please make a selection");
 			%>
@@ -197,7 +232,7 @@
 		<%	
 		}
 
-		if (request.getMethod().equals("POST") && destination.equalsIgnoreCase("orlando")) {
+		if (destination.equalsIgnoreCase("orlando")) {
 		%>
 							<style>
 								#posterIndex{
@@ -235,32 +270,42 @@
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
-				<B>Number of Rooms: <%out.println(rooms); %></B>
+				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
-				<B>Room Size: <%out.println(rm_size); %></B>
+				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
 				<br>
 				<B>Amenities:</B><br>
 				<br>
 				<%
-				
-				wifiCheckBox = request.getParameter("wifi");
-				breakfastCheckBox = request.getParameter("breakfast");
-				parkingCheckBox = request.getParameter("parking");
-				
-				if (wifiCheckBox != null) {
-					 
-					out.println(wifiCheckBox);
-				}
-		
-				if (breakfastCheckBox != null) {
+							
+				if (wifiCheckBox != "" || wifiCheckBox != null) {
+					session1.setAttribute("wifi", wifiCheckBox);
+					out.println(" ");
 					
-					out.println(breakfastCheckBox);
+					if(wifiCheckBox != null){
+						out.println(wifiCheckBox);
+					}
+				
+				
 				}
-		
-				if (parkingCheckBox != null) {
+				if (breakfastCheckBox != "" || breakfastCheckBox != null) {
+					session1.setAttribute("breakfast", breakfastCheckBox);
+					out.println(" ");
 					
-					out.println(parkingCheckBox);
+					if(breakfastCheckBox != null){
+						out.println(breakfastCheckBox);
+					}
 				}
+				
+				if (parkingCheckBox != "" || parkingCheckBox != null) {
+					session1.setAttribute("parking", parkingCheckBox);
+					out.println(" ");
+					if(parkingCheckBox != null){
+						out.println(parkingCheckBox);
+					}
+					
+				}
+
 				
 				%>
 				<br><br>
@@ -284,6 +329,8 @@
 					<% 
 					}
 					else{%>
+						
+					
 						<form action="confirmation.jsp" method="post">
 				    		<button type="submit">Book!</button>
 						</form>
@@ -297,7 +344,7 @@
 
 %>
 		<%
-		if (request.getMethod().equals("POST") && destination.equalsIgnoreCase("omaha")) {
+		if (destination.equalsIgnoreCase("omaha")) {
 		%>
 							<style>
 								#posterIndex{
@@ -334,31 +381,40 @@
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
-				<B>Number of Rooms: <%out.println(rooms); %></B>
+				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
-				<B>Room Size: <%out.println(rm_size); %></B>
+				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
 				<br>
 				<B>Amenities:</B><br>
 				<br>
 				<%
 				
-				wifiCheckBox = request.getParameter("wifi");
-				breakfastCheckBox = request.getParameter("breakfast");
-				parkingCheckBox = request.getParameter("parking");
+				if (wifiCheckBox != "" || wifiCheckBox != null) {
+					session1.setAttribute("wifi", wifiCheckBox);
+					out.println(" ");
+					
+					if(wifiCheckBox != null){
+						out.println(wifiCheckBox);
+					}
 				
-				if (wifiCheckBox != null) {
-					 
-					out.println(wifiCheckBox);
+				
 				}
-		
-				if (breakfastCheckBox != null) {
+				if (breakfastCheckBox != "" || breakfastCheckBox != null) {
+					session1.setAttribute("breakfast", breakfastCheckBox);
+					out.println(" ");
 					
-					out.println(breakfastCheckBox);
+					if(breakfastCheckBox != null){
+						out.println(breakfastCheckBox);
+					}
 				}
-		
-				if (parkingCheckBox != null) {
+				
+				if (parkingCheckBox != "" || parkingCheckBox != null) {
+					session1.setAttribute("parking", parkingCheckBox);
+					out.println(" ");
+					if(parkingCheckBox != null){
+						out.println(parkingCheckBox);
+					}
 					
-					out.println(parkingCheckBox);
 				}
 				
 				%>
@@ -397,7 +453,7 @@
 }			
 %>
 		<%
-		if (request.getMethod().equals("POST") && destination.equalsIgnoreCase("grand")) {
+		if (destination.equalsIgnoreCase("grand")) {
 		%>
 							<style>
 								#posterIndex{
@@ -434,31 +490,40 @@
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
-				<B>Number of Rooms: <%out.println(rooms); %></B>
+				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
-				<B>Room Size: <%out.println(rm_size); %></B>
+				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
 				<br>
 				<B>Amenities:</B><br>
 				<br>
 				<%
 				
-				wifiCheckBox = request.getParameter("wifi");
-				breakfastCheckBox = request.getParameter("breakfast");
-				parkingCheckBox = request.getParameter("parking");
+				if (wifiCheckBox != "" || wifiCheckBox != null) {
+					session1.setAttribute("wifi", wifiCheckBox);
+					out.println(" ");
+					
+					if(wifiCheckBox != null){
+						out.println(wifiCheckBox);
+					}
 				
-				if (wifiCheckBox != null) {
-					 
-					out.println(wifiCheckBox);
+				
 				}
-		
-				if (breakfastCheckBox != null) {
+				if (breakfastCheckBox != "" || breakfastCheckBox != null) {
+					session1.setAttribute("breakfast", breakfastCheckBox);
+					out.println(" ");
 					
-					out.println(breakfastCheckBox);
+					if(breakfastCheckBox != null){
+						out.println(breakfastCheckBox);
+					}
 				}
-		
-				if (parkingCheckBox != null) {
+				
+				if (parkingCheckBox != "" || parkingCheckBox != null) {
+					session1.setAttribute("parking", parkingCheckBox);
+					out.println(" ");
+					if(parkingCheckBox != null){
+						out.println(parkingCheckBox);
+					}
 					
-					out.println(parkingCheckBox);
 				}
 				
 				%>
@@ -501,6 +566,11 @@
 <%
 }			
 %>
+
+<%
+}			
+%>
+
 
 	</div>
 

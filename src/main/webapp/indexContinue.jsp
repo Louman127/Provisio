@@ -14,86 +14,210 @@
 </head>
 <body>
 
-	<%
-	
-	
-
-	String arrive = "";
-	String depart = "";
-	String adults = "";
-	String kids = "";
-	String rooms = "";
-	String rm_size = "";
-	String wifiCheckBox = "";
-	String breakfastCheckBox = "";
-	String parkingCheckBox = "";
-
-	int id;
-	String hotel = "";
-	String country = "US";
-	String stAddressFL = "777 Wonderful Street";
-	String stAddressNE = "123 Grand Street";
-	String stAddressAZ = "789 Happy Street";
-
-	String state = "";
-	String city = "";
-	String zip = "";
-	String phone = "";
-
-	String hotelFL = "Florida Provisio Hotel";
-	String hotelNE = "Nebraska Provisio Hotel";
-	String hotelAZ = "Arizona Provisio Hotel";
-
-	// Getting parameters from HTML
-	//String prop = request.getParameter("properties");
-	
-	HttpSession session1 = request.getSession(false);
-	
-	String destination = (String) session1.getAttribute("properties");
-	
-	//String prop = (String) session1.getAttribute("properties");
-	
-	String select = (String) session1.getAttribute("selection");
-	
-	String orlando = (String) session1.getAttribute("orlando");
-	
-	String omaha = (String) session1.getAttribute("omaha");
-	
-	String grand = (String) session1.getAttribute("grand");
-	
-	arrive = (String) session1.getAttribute("start");
-	
-	depart = (String) session1.getAttribute("finish");
-	
-	adults = (String) session1.getAttribute("grown");
-	
-	kids = (String) session1.getAttribute("babies");
-	
-	rooms = (String) session1.getAttribute("rooms");
-	
-	rm_size = (String) session1.getAttribute("rm_size");
-	
-	/*
-	out.println(destination);
-	out.println(select);
-	out.println(orlando);
-	out.println(omaha);
-	out.println(grand);
-	out.println(arrive);
-	out.println(depart);
-	out.println(adults);
-	out.println(kids);
-	out.println(rooms);
-	out.println(rm_size);*/
-
-	%>
-	
-
-
-
 		<div id="posterIndex">
 		
 		<%
+		
+		
+		
+		
+		
+		
+		String select;
+		String orlando;
+		String omaha;
+		String grand;
+		String destination;
+		if(request.getMethod().equals("GET")){
+		//destination = request.getParameter("properties");
+		
+		
+		
+		
+		
+		
+		// Getting parameters from HTML and setting to session
+		
+		HttpSession session1 = request.getSession(false);
+		
+		//con = (Connection) session1.getAttribute("Loggedin");
+		
+		
+		//Statement stmt = con.createStatement();
+		/*stmt.executeQuery("");*/
+		
+		try{
+			con = (Connection) session1.getAttribute("Loggedin");
+			if (con != null){
+				System.out.print(session1);
+			}
+			else{
+				System.out.println("No connection to DB");
+			}
+			
+			Statement stmt = con.createStatement();
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
+		
+		
+		
+		
+		
+		String state = "";
+		String city = "";
+		String zip = "";
+		String phone = "";
+		String country = "US";
+		String stAddressFL = "777 Wonderful Street";
+		String stAddressNE = "123 Grand Street";
+		String stAddressAZ = "789 Happy Street";
+		String hotelFL = "Florida Provisio Hotel";
+		String hotelNE = "Nebraska Provisio Hotel";
+		String hotelAZ = "Arizona Provisio Hotel";
+		
+		String wifiCheckBox = (String) session1.getAttribute("wifi");
+		String breakfastCheckBox = (String) session1.getAttribute("breakfast");
+		String parkingCheckBox = (String) session1.getAttribute("parking");
+
+		int wifiForSQL = 0; //Integer.valueOf(wifiCheckBox);
+		int breakfastForSQL = 0; //Integer.valueOf(breakfastCheckBox);
+		int parkingForSQL = 0; //Integer.valueOf(parkingCheckBox);
+		
+		if(wifiCheckBox != null){
+			wifiForSQL = 1;
+		}
+		if(breakfastCheckBox != null){
+			breakfastForSQL = 1;
+		}
+		if(parkingCheckBox != null){
+			parkingForSQL = 1;
+		}
+		
+		destination = (String) session1.getAttribute("properties");
+		select = (String) session1.getAttribute("selection");
+		orlando = (String) session1.getAttribute("orlando");
+		omaha = (String) session1.getAttribute("omaha");
+		grand = (String) session1.getAttribute("grand");
+		String arrive = (String) session1.getAttribute("start");
+		String depart = (String) session1.getAttribute("finish");
+		String adults = (String) session1.getAttribute("grown");
+		String kids = (String) session1.getAttribute("babies");
+		String rm_size = (String) session1.getAttribute("rm_size");
+		
+		int room_sizeInt = Integer.valueOf(rm_size);
+		String roomSizeDisplay = "";
+		if(room_sizeInt == 4){
+			roomSizeDisplay = "Double";
+			
+		}
+		if(room_sizeInt == 3){
+			roomSizeDisplay = "Queen";
+			
+		}
+		if(room_sizeInt == 2){
+			roomSizeDisplay = "Double Queen";
+			
+		}
+		if(room_sizeInt == 1){
+			roomSizeDisplay = "King";
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		String state = "";
+		String city = "";
+		String zip = "";
+		String phone = "";
+		String country = "US";
+		String stAddressFL = "777 Wonderful Street";
+		String stAddressNE = "123 Grand Street";
+		String stAddressAZ = "789 Happy Street";
+		String hotelFL = "Florida Provisio Hotel";
+		String hotelNE = "Nebraska Provisio Hotel";
+		String hotelAZ = "Arizona Provisio Hotel";
+		
+		String wifiCheckBox = request.getParameter("wifi");
+		String breakfastCheckBox = request.getParameter("breakfast");
+		String parkingCheckBox = request.getParameter("parking");*/
+		
+		/*
+		destination = request.getParameter("properties");
+		select = request.getParameter("selection");
+		orlando = request.getParameter("orlando");
+		omaha = request.getParameter("omaha");
+		grand = request.getParameter("grand");*/
+		
+		/*
+		String arrive = request.getParameter("start");
+		String depart = request.getParameter("finish");
+		String adults = request.getParameter("grown");
+		String kids = request.getParameter("babies");		
+		String rm_size = request.getParameter("rm_size");
+		
+		int room_sizeInt = Integer.valueOf(rm_size);
+		String roomSizeDisplay = "";*/
+		
+		
+		if(room_sizeInt == 4){
+			roomSizeDisplay = "Double";
+			
+		}
+		if(room_sizeInt == 3){
+			roomSizeDisplay = "Queen";
+			
+		}
+		if(room_sizeInt == 2){
+			roomSizeDisplay = "Double Queen";
+			
+		}
+		if(room_sizeInt == 1){
+			roomSizeDisplay = "King";
+			
+		}
+		/*
+		session1.setAttribute("properties", destination);
+		session1.setAttribute("selection", select);
+		session1.setAttribute("orlando", orlando);
+		session1.setAttribute("omaha", omaha);
+		session1.setAttribute("grand", grand);
+		session1.setAttribute("start", arrive);
+		session1.setAttribute("finish", depart);
+		session1.setAttribute("grown", adults);
+		session1.setAttribute("babies", kids);
+		session1.setAttribute("rm_size", rm_size);*/
+		
+		if(destination.equalsIgnoreCase("selection")){
+			System.out.println("Please make a valid selection.");
+			out.println("Please make a selection");
+			%>
+					<style>
+						#posterIndex{
+							display: inline-block;
+							padding: 50px;
+							margin-top: 250px;
+							margin-left: 20%;
+							background-color:rgba(21, 70, 153, .8);
+							border-radius: 10px 10px 10px 10px;
+    						box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+						}
+					</style>
+					<br><br>
+					<form action="index.jsp" method="get">
+				    	<button type="submit">Go Back</button>
+					</form>
+							
+		<%	
+		}
+
 		if (destination.equalsIgnoreCase("orlando")) {
 		%>
 							<style>
@@ -132,32 +256,42 @@
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
-				<B>Number of Rooms: <%out.println(rooms); %></B>
+				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
-				<B>Room Size: <%out.println(rm_size); %></B>
+				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
 				<br>
 				<B>Amenities:</B><br>
 				<br>
 				<%
-				
-				wifiCheckBox = request.getParameter("wifi");
-				breakfastCheckBox = request.getParameter("breakfast");
-				parkingCheckBox = request.getParameter("parking");
-				
-				if (wifiCheckBox != null) {
-					 
-					out.println(wifiCheckBox);
-				}
-		
-				if (breakfastCheckBox != null) {
+							
+				if (wifiCheckBox != "" || wifiCheckBox != null) {
+					session1.setAttribute("wifi", wifiCheckBox);
+					out.println(" ");
 					
-					out.println(breakfastCheckBox);
+					if(wifiCheckBox != null){
+						out.println(wifiCheckBox);
+					}
+				
+				
 				}
-		
-				if (parkingCheckBox != null) {
+				if (breakfastCheckBox != "" || breakfastCheckBox != null) {
+					session1.setAttribute("breakfast", breakfastCheckBox);
+					out.println(" ");
 					
-					out.println(parkingCheckBox);
+					if(breakfastCheckBox != null){
+						out.println(breakfastCheckBox);
+					}
 				}
+				
+				if (parkingCheckBox != "" || parkingCheckBox != null) {
+					session1.setAttribute("parking", parkingCheckBox);
+					out.println(" ");
+					if(parkingCheckBox != null){
+						out.println(parkingCheckBox);
+					}
+					
+				}
+
 				
 				%>
 				<br><br>
@@ -175,13 +309,15 @@
 					<% if (conn == null) { %>
 					    <p>Please sign in</p>
 					    
-					    <form action="signin.jsp" method="get">
+					    <form action="signinContinue.jsp" method="post">
 				    		<button type="submit">Sign In</button>
 						</form>
 					<% 
 					}
 					else{%>
-						<form action="confirmation.jsp" method="get">
+						
+					
+						<form action="confirmation.jsp" method="post">
 				    		<button type="submit">Book!</button>
 						</form>
 					<%	
@@ -231,31 +367,40 @@
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
-				<B>Number of Rooms: <%out.println(rooms); %></B>
+				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
-				<B>Room Size: <%out.println(rm_size); %></B>
+				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
 				<br>
 				<B>Amenities:</B><br>
 				<br>
 				<%
 				
-				wifiCheckBox = request.getParameter("wifi");
-				breakfastCheckBox = request.getParameter("breakfast");
-				parkingCheckBox = request.getParameter("parking");
+				if (wifiCheckBox != "" || wifiCheckBox != null) {
+					session1.setAttribute("wifi", wifiCheckBox);
+					out.println(" ");
+					
+					if(wifiCheckBox != null){
+						out.println(wifiCheckBox);
+					}
 				
-				if (wifiCheckBox != null) {
-					 
-					out.println(wifiCheckBox);
+				
 				}
-		
-				if (breakfastCheckBox != null) {
+				if (breakfastCheckBox != "" || breakfastCheckBox != null) {
+					session1.setAttribute("breakfast", breakfastCheckBox);
+					out.println(" ");
 					
-					out.println(breakfastCheckBox);
+					if(breakfastCheckBox != null){
+						out.println(breakfastCheckBox);
+					}
 				}
-		
-				if (parkingCheckBox != null) {
+				
+				if (parkingCheckBox != "" || parkingCheckBox != null) {
+					session1.setAttribute("parking", parkingCheckBox);
+					out.println(" ");
+					if(parkingCheckBox != null){
+						out.println(parkingCheckBox);
+					}
 					
-					out.println(parkingCheckBox);
 				}
 				
 				%>
@@ -277,7 +422,7 @@
 					<% if (conn == null) { %>
 					    <p>Please sign in</p>
 					       
-					    <form action="signin.jsp" method="get">
+					    <form action="signinContinue.jsp" method="get">
 				    		<button type="submit">Sign In</button>
 						</form>
 					<% 
@@ -331,31 +476,40 @@
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
-				<B>Number of Rooms: <%out.println(rooms); %></B>
+				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
-				<B>Room Size: <%out.println(rm_size); %></B>
+				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
 				<br>
 				<B>Amenities:</B><br>
 				<br>
 				<%
 				
-				wifiCheckBox = request.getParameter("wifi");
-				breakfastCheckBox = request.getParameter("breakfast");
-				parkingCheckBox = request.getParameter("parking");
+				if (wifiCheckBox != "" || wifiCheckBox != null) {
+					session1.setAttribute("wifi", wifiCheckBox);
+					out.println(" ");
+					
+					if(wifiCheckBox != null){
+						out.println(wifiCheckBox);
+					}
 				
-				if (wifiCheckBox != null) {
-					 
-					out.println(wifiCheckBox);
+				
 				}
-		
-				if (breakfastCheckBox != null) {
+				if (breakfastCheckBox != "" || breakfastCheckBox != null) {
+					session1.setAttribute("breakfast", breakfastCheckBox);
+					out.println(" ");
 					
-					out.println(breakfastCheckBox);
+					if(breakfastCheckBox != null){
+						out.println(breakfastCheckBox);
+					}
 				}
-		
-				if (parkingCheckBox != null) {
+				
+				if (parkingCheckBox != "" || parkingCheckBox != null) {
+					session1.setAttribute("parking", parkingCheckBox);
+					out.println(" ");
+					if(parkingCheckBox != null){
+						out.println(parkingCheckBox);
+					}
 					
-					out.println(parkingCheckBox);
 				}
 				
 				%>
@@ -379,7 +533,7 @@
 					<% if (conn == null) { %>
 					    <p>Please sign in</p>
 					    
-					    <form action="signin.jsp" method="get">
+					    <form action="signinContinue.jsp" method="get">
 				    		<button type="submit">Sign In</button>
 						</form>
 					
@@ -398,6 +552,11 @@
 <%
 }			
 %>
+
+<%
+}			
+%>
+
 
 	</div>
 
