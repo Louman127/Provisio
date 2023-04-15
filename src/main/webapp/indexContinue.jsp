@@ -1,6 +1,15 @@
+<%@page import="java.util.Locale"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.io.PrintWriter"%>
+
+
+<%@page import="java.lang.Double"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.format.*"%>
+<%@page import="java.text.NumberFormat"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,22 +38,9 @@
 		String grand;
 		String destination;
 		if(request.getMethod().equals("GET")){
-		//destination = request.getParameter("properties");
-		
-		
-		
-		
-		
 		
 		// Getting parameters from HTML and setting to session
-		
 		HttpSession session1 = request.getSession(false);
-		
-		//con = (Connection) session1.getAttribute("Loggedin");
-		
-		
-		//Statement stmt = con.createStatement();
-		/*stmt.executeQuery("");*/
 		
 		try{
 			con = (Connection) session1.getAttribute("Loggedin");
@@ -61,10 +57,7 @@
 			System.out.println(e);
 		}
 		
-		
-		
-		
-		
+	
 		String state = "";
 		String city = "";
 		String zip = "";
@@ -81,9 +74,9 @@
 		String breakfastCheckBox = (String) session1.getAttribute("breakfast");
 		String parkingCheckBox = (String) session1.getAttribute("parking");
 
-		int wifiForSQL = 0; //Integer.valueOf(wifiCheckBox);
-		int breakfastForSQL = 0; //Integer.valueOf(breakfastCheckBox);
-		int parkingForSQL = 0; //Integer.valueOf(parkingCheckBox);
+		int wifiForSQL = 0; 
+		int breakfastForSQL = 0; 
+		int parkingForSQL = 0; 
 		
 		if(wifiCheckBox != null){
 			wifiForSQL = 1;
@@ -106,94 +99,27 @@
 		String kids = (String) session1.getAttribute("babies");
 		String rm_size = (String) session1.getAttribute("rm_size");
 		
+		Double roomAmt = 0.00;
+		
 		int room_sizeInt = Integer.valueOf(rm_size);
 		String roomSizeDisplay = "";
 		if(room_sizeInt == 4){
 			roomSizeDisplay = "Double";
-			
+			roomAmt = 115.0;
 		}
 		if(room_sizeInt == 3){
 			roomSizeDisplay = "Queen";
-			
+			roomAmt = 125.0;
 		}
 		if(room_sizeInt == 2){
 			roomSizeDisplay = "Double Queen";
-			
+			roomAmt = 150.0;
 		}
 		if(room_sizeInt == 1){
 			roomSizeDisplay = "King";
-			
+			roomAmt = 165.0;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		String state = "";
-		String city = "";
-		String zip = "";
-		String phone = "";
-		String country = "US";
-		String stAddressFL = "777 Wonderful Street";
-		String stAddressNE = "123 Grand Street";
-		String stAddressAZ = "789 Happy Street";
-		String hotelFL = "Florida Provisio Hotel";
-		String hotelNE = "Nebraska Provisio Hotel";
-		String hotelAZ = "Arizona Provisio Hotel";
-		
-		String wifiCheckBox = request.getParameter("wifi");
-		String breakfastCheckBox = request.getParameter("breakfast");
-		String parkingCheckBox = request.getParameter("parking");*/
-		
-		/*
-		destination = request.getParameter("properties");
-		select = request.getParameter("selection");
-		orlando = request.getParameter("orlando");
-		omaha = request.getParameter("omaha");
-		grand = request.getParameter("grand");*/
-		
-		/*
-		String arrive = request.getParameter("start");
-		String depart = request.getParameter("finish");
-		String adults = request.getParameter("grown");
-		String kids = request.getParameter("babies");		
-		String rm_size = request.getParameter("rm_size");
-		
-		int room_sizeInt = Integer.valueOf(rm_size);
-		String roomSizeDisplay = "";*/
-		
-		
-		if(room_sizeInt == 4){
-			roomSizeDisplay = "Double";
-			
-		}
-		if(room_sizeInt == 3){
-			roomSizeDisplay = "Queen";
-			
-		}
-		if(room_sizeInt == 2){
-			roomSizeDisplay = "Double Queen";
-			
-		}
-		if(room_sizeInt == 1){
-			roomSizeDisplay = "King";
-			
-		}
-		/*
-		session1.setAttribute("properties", destination);
-		session1.setAttribute("selection", select);
-		session1.setAttribute("orlando", orlando);
-		session1.setAttribute("omaha", omaha);
-		session1.setAttribute("grand", grand);
-		session1.setAttribute("start", arrive);
-		session1.setAttribute("finish", depart);
-		session1.setAttribute("grown", adults);
-		session1.setAttribute("babies", kids);
-		session1.setAttribute("rm_size", rm_size);*/
 		
 		if(destination.equalsIgnoreCase("selection")){
 			System.out.println("Please make a valid selection.");
@@ -255,21 +181,32 @@
 				<B>From: <%out.println(arrive); %></B><B> To: <%out.println(depart); %></B>
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
-				<br>
+				
 				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
 				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
-				<br>
-				<B>Amenities:</B><br>
+				<br><br>
+				<B>Amenities:</B>
 				<br>
 				<%
-							
+				
+				LocalDate dateIn = LocalDate.parse(arrive);
+				LocalDate dateOut = LocalDate.parse(depart);
+				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
+				
+				roomAmt = roomAmt * nightsStaying;
+				int loyalty_points_earned = 150;
+				loyalty_points_earned = loyalty_points_earned * nightsStaying;
+				
+				
 				if (wifiCheckBox != "" || wifiCheckBox != null) {
 					session1.setAttribute("wifi", wifiCheckBox);
 					out.println(" ");
 					
 					if(wifiCheckBox != null){
 						out.println(wifiCheckBox);
+						Double wifiPrice = 12.99;
+						roomAmt = roomAmt + wifiPrice;
 					}
 				
 				
@@ -280,6 +217,8 @@
 					
 					if(breakfastCheckBox != null){
 						out.println(breakfastCheckBox);
+						Double breakfastPrice = 8.99 * nightsStaying;
+						roomAmt = roomAmt + breakfastPrice;
 					}
 				}
 				
@@ -288,9 +227,18 @@
 					out.println(" ");
 					if(parkingCheckBox != null){
 						out.println(parkingCheckBox);
+						Double parkingPrice = 19.99 * nightsStaying;
+						roomAmt = roomAmt + parkingPrice;
 					}
 					
 				}
+				out.println("<br /> <br /><B>Summary:</B> ");
+				out.println("<br />The loyalty points you will earn: " + loyalty_points_earned);
+				
+				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
+				out.println("<br />The total is: " + roomAmtCurrency);
+				// Note: if there are problems with the below output use the above fully qualified name
+				//out.println("<br />The total is: " + NumberFormat.getCurrencyInstance(Locale.US).format(roomAmt));
 
 				
 				%>
@@ -368,12 +316,21 @@
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
 				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
-				<br>
+				
 				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
-				<br>
-				<B>Amenities:</B><br>
+				<br><br>
+				<B>Amenities:</B>
 				<br>
 				<%
+				
+				LocalDate dateIn = LocalDate.parse(arrive);
+				LocalDate dateOut = LocalDate.parse(depart);
+				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
+				
+				roomAmt = roomAmt * nightsStaying;
+				int loyalty_points_earned = 150;
+				loyalty_points_earned = loyalty_points_earned * nightsStaying;
+				
 				
 				if (wifiCheckBox != "" || wifiCheckBox != null) {
 					session1.setAttribute("wifi", wifiCheckBox);
@@ -381,6 +338,8 @@
 					
 					if(wifiCheckBox != null){
 						out.println(wifiCheckBox);
+						Double wifiPrice = 12.99;
+						roomAmt = roomAmt + wifiPrice;
 					}
 				
 				
@@ -391,6 +350,8 @@
 					
 					if(breakfastCheckBox != null){
 						out.println(breakfastCheckBox);
+						Double breakfastPrice = 8.99 * nightsStaying;
+						roomAmt = roomAmt + breakfastPrice;
 					}
 				}
 				
@@ -399,9 +360,16 @@
 					out.println(" ");
 					if(parkingCheckBox != null){
 						out.println(parkingCheckBox);
+						Double parkingPrice = 19.99 * nightsStaying;
+						roomAmt = roomAmt + parkingPrice;
 					}
 					
 				}
+				out.println("<br /> <br /><B>Summary:</B> ");
+				out.println("<br />The loyalty points you will earn: " + loyalty_points_earned);
+				
+				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
+				out.println("<br />The total is: " + roomAmtCurrency);
 				
 				%>
 				<br><br>
@@ -477,12 +445,21 @@
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
 				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
-				<br>
+				
 				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
-				<br>
-				<B>Amenities:</B><br>
+				<br><br>
+				<B>Amenities:</B>
 				<br>
 				<%
+				
+				LocalDate dateIn = LocalDate.parse(arrive);
+				LocalDate dateOut = LocalDate.parse(depart);
+				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
+				
+				roomAmt = roomAmt * nightsStaying;
+				int loyalty_points_earned = 150;
+				loyalty_points_earned = loyalty_points_earned * nightsStaying;
+				
 				
 				if (wifiCheckBox != "" || wifiCheckBox != null) {
 					session1.setAttribute("wifi", wifiCheckBox);
@@ -490,6 +467,8 @@
 					
 					if(wifiCheckBox != null){
 						out.println(wifiCheckBox);
+						Double wifiPrice = 12.99;
+						roomAmt = roomAmt + wifiPrice;
 					}
 				
 				
@@ -500,6 +479,8 @@
 					
 					if(breakfastCheckBox != null){
 						out.println(breakfastCheckBox);
+						Double breakfastPrice = 8.99 * nightsStaying;
+						roomAmt = roomAmt + breakfastPrice;
 					}
 				}
 				
@@ -508,9 +489,16 @@
 					out.println(" ");
 					if(parkingCheckBox != null){
 						out.println(parkingCheckBox);
+						Double parkingPrice = 19.99 * nightsStaying;
+						roomAmt = roomAmt + parkingPrice;
 					}
 					
 				}
+				out.println("<br /> <br /><B>Summary:</B> ");
+				out.println("<br />The loyalty points you will earn: " + loyalty_points_earned);
+				
+				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
+				out.println("<br />The total is: " + roomAmtCurrency);
 				
 				%>
 				<br><br>

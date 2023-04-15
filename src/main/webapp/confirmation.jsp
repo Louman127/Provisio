@@ -178,10 +178,10 @@
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
 				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
-				<br>
+				
 				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
-				<br>
-				<B>Amenities:</B><br>
+				<br><br>
+				<B>Amenities:</B>
 				<br>
 				<%
 				
@@ -213,8 +213,14 @@
 					roomAmt = roomAmt + parkingPrice;
 				}
 				System.out.println(roomAmt);
+				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
+				
+				out.println("<br /> <br /><B>Summary:</B> ");
+				out.println("<br />The loyalty points you earned: " + loyalty_points_earned);
+				out.println("<br />The total is: " + roomAmtCurrency);
+				
 				stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, price_total)" 
-				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 1 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmt + "')");
+				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 1 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmtCurrency + "')");
 				
 				%>
 				<br><br>
@@ -226,9 +232,10 @@
 				   going to Sea World!</p>
 				   
 				   <p> Reservation Booked<br></p>
+
 													
 <%
-
+					
 }
 
 %>
@@ -269,12 +276,12 @@
 				<B>From: <%out.println(arrive); %></B><B> To: <%out.println(depart); %></B>
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
-				<br>
+				
 				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
 				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
-				<br>
-				<B>Amenities:</B><br>
+				<br><br>
+				<B>Amenities:</B>
 				<br>
 				<%
 				
@@ -305,8 +312,14 @@
 					roomAmt = roomAmt + parkingPrice;
 				}
 				System.out.println(roomAmt);
+				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
+				
+				out.println("<br /> <br /><B>Summary:</B> ");
+				out.println("<br />The loyalty points you earned: " + loyalty_points_earned);
+				out.println("<br />The total is: " + roomAmtCurrency);
+				
 				stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, price_total)" 
-				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 2 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmt + "')");
+				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 2 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmtCurrency + "')");
 				
 				%>
 				<br><br>
@@ -364,10 +377,10 @@
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
 				<br>
 				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
-				<br>
+				
 				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
-				<br>
-				<B>Amenities:</B><br>
+				<br><br>
+				<B>Amenities:</B>
 				<br>
 				<%
 				
@@ -398,8 +411,14 @@
 					roomAmt = roomAmt + parkingPrice;
 				}
 				System.out.println(roomAmt);
+				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
+				
+				out.println("<br /> <br /><B>Summary:</B> ");
+				out.println("<br />The loyalty points you earned: " + loyalty_points_earned);
+				out.println("<br />The total is: " + roomAmtCurrency);
+				
 				stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, price_total)" 
-				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 3 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmt + "')");
+				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 3 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmtCurrency + "')");
 				
 				%>
 				<br><br>

@@ -1,6 +1,15 @@
+<%@page import="java.util.Locale"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.io.PrintWriter"%>
+
+
+<%@page import="java.lang.Double"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.format.*"%>
+<%@page import="java.text.NumberFormat"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +19,10 @@
 <link rel="stylesheet" href="PageStructure/style.css" media="screen">
 <%@include file="PageStructure/topPage.jsp"%>
 <%@include file="PageStructure/bottomPage.jsp"%>
+
+
+
+
 
 </head>
 <body>
@@ -125,14 +138,7 @@
 		destination = request.getParameter("properties");
 		
 		// Getting parameters from HTML and setting to session
-		
 		HttpSession session1 = request.getSession(true);
-		
-		//con = (Connection) session1.getAttribute("Loggedin");
-		
-		
-		//Statement stmt = con.createStatement();
-		/*stmt.executeQuery("");*/
 		
 		try{
 			con = (Connection) session1.getAttribute("Loggedin");
@@ -178,23 +184,28 @@
 		String rooms = request.getParameter("rooms");
 		
 		String rm_size = request.getParameter("rm_size");
+		Double roomAmt = 0.00;
 		
 		int room_sizeInt = Integer.valueOf(rm_size);
 		String roomSizeDisplay = "";
 		if(room_sizeInt == 4){
 			roomSizeDisplay = "Double";
+			roomAmt = 115.0;
 			
 		}
 		if(room_sizeInt == 3){
 			roomSizeDisplay = "Queen";
+			roomAmt = 125.0;
 			
 		}
 		if(room_sizeInt == 2){
 			roomSizeDisplay = "Double Queen";
+			roomAmt = 150.0;
 			
 		}
 		if(room_sizeInt == 1){
 			roomSizeDisplay = "King";
+			roomAmt = 165.0;
 			
 		}
 		
@@ -269,14 +280,24 @@
 				<B>From: <%out.println(arrive); %></B><B> To: <%out.println(depart); %></B>
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
-				<br>
+				
 				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
 				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
-				<br>
-				<B>Amenities:</B><br>
+				<br><br>
+				<B>Amenities:</B>
 				<br>
 				<%
+				
+				LocalDate dateIn = LocalDate.parse(arrive);
+				LocalDate dateOut = LocalDate.parse(depart);
+				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
+
+
+				roomAmt = roomAmt * nightsStaying;
+				int loyalty_points_earned = 150;
+				loyalty_points_earned = loyalty_points_earned * nightsStaying;
+				
 							
 				if (wifiCheckBox != "" || wifiCheckBox != null) {
 					session1.setAttribute("wifi", wifiCheckBox);
@@ -284,6 +305,8 @@
 					
 					if(wifiCheckBox != null){
 						out.println(wifiCheckBox);
+						Double wifiPrice = 12.99;
+						roomAmt = roomAmt + wifiPrice;
 					}
 				
 				
@@ -294,6 +317,8 @@
 					
 					if(breakfastCheckBox != null){
 						out.println(breakfastCheckBox);
+						Double breakfastPrice = 8.99 * nightsStaying;
+						roomAmt = roomAmt + breakfastPrice;
 					}
 				}
 				
@@ -301,11 +326,20 @@
 					session1.setAttribute("parking", parkingCheckBox);
 					out.println(" ");
 					if(parkingCheckBox != null){
-						out.println(parkingCheckBox);
+						out.println(parkingCheckBox);	
+						Double parkingPrice = 19.99 * nightsStaying;
+						roomAmt = roomAmt + parkingPrice;
 					}
 					
 				}
-
+				out.println("<br /> <br /><B>Summary:</B> ");
+				out.println("<br />The loyalty points you will earn: " + loyalty_points_earned);
+				
+				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
+				out.println("<br />The total is: " + roomAmtCurrency);
+				
+				// Note: if there are problems with the below output use the above fully qualified name
+				//out.println("<br />The total is: " + NumberFormat.getCurrencyInstance(Locale.US).format(roomAmt));
 				
 				%>
 				<br><br>
@@ -380,21 +414,33 @@
 				<B>From: <%out.println(arrive); %></B><B> To: <%out.println(depart); %></B>
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
-				<br>
+				
 				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
 				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
-				<br>
-				<B>Amenities:</B><br>
+				<br><br>
+				<B>Amenities:</B>
 				<br>
 				<%
 				
+				LocalDate dateIn = LocalDate.parse(arrive);
+				LocalDate dateOut = LocalDate.parse(depart);
+				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
+
+
+				roomAmt = roomAmt * nightsStaying;
+				int loyalty_points_earned = 150;
+				loyalty_points_earned = loyalty_points_earned * nightsStaying;
+				
+							
 				if (wifiCheckBox != "" || wifiCheckBox != null) {
 					session1.setAttribute("wifi", wifiCheckBox);
 					out.println(" ");
 					
 					if(wifiCheckBox != null){
 						out.println(wifiCheckBox);
+						Double wifiPrice = 12.99;
+						roomAmt = roomAmt + wifiPrice;
 					}
 				
 				
@@ -405,6 +451,8 @@
 					
 					if(breakfastCheckBox != null){
 						out.println(breakfastCheckBox);
+						Double breakfastPrice = 8.99 * nightsStaying;
+						roomAmt = roomAmt + breakfastPrice;
 					}
 				}
 				
@@ -412,10 +460,17 @@
 					session1.setAttribute("parking", parkingCheckBox);
 					out.println(" ");
 					if(parkingCheckBox != null){
-						out.println(parkingCheckBox);
+						out.println(parkingCheckBox);	
+						Double parkingPrice = 19.99 * nightsStaying;
+						roomAmt = roomAmt + parkingPrice;
 					}
 					
 				}
+				out.println("<br /> <br /><B>Summary:</B> ");
+				out.println("<br />The loyalty points you will earn: " + loyalty_points_earned);
+				
+				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
+				out.println("<br />The total is: " + roomAmtCurrency);
 				
 				%>
 				<br><br>
@@ -489,21 +544,33 @@
 				<B>From: <%out.println(arrive); %></B><B> To: <%out.println(depart); %></B>
 				<br>
 				<B>Number of People: Adults = <%out.println(adults); %> and </B><B> Children = <%out.println(kids); %></B>
-				<br>
+				
 				<%-- <B>Number of Rooms: <%out.println(rooms); %></B> --%>
 				<br>
 				<B>Room Size: <%out.println(roomSizeDisplay); %></B>
-				<br>
-				<B>Amenities:</B><br>
+				<br><br>
+				<B>Amenities:</B>
 				<br>
 				<%
 				
+				LocalDate dateIn = LocalDate.parse(arrive);
+				LocalDate dateOut = LocalDate.parse(depart);
+				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
+
+
+				roomAmt = roomAmt * nightsStaying;
+				int loyalty_points_earned = 150;
+				loyalty_points_earned = loyalty_points_earned * nightsStaying;
+				
+							
 				if (wifiCheckBox != "" || wifiCheckBox != null) {
 					session1.setAttribute("wifi", wifiCheckBox);
 					out.println(" ");
 					
 					if(wifiCheckBox != null){
 						out.println(wifiCheckBox);
+						Double wifiPrice = 12.99;
+						roomAmt = roomAmt + wifiPrice;
 					}
 				
 				
@@ -514,6 +581,8 @@
 					
 					if(breakfastCheckBox != null){
 						out.println(breakfastCheckBox);
+						Double breakfastPrice = 8.99 * nightsStaying;
+						roomAmt = roomAmt + breakfastPrice;
 					}
 				}
 				
@@ -521,10 +590,17 @@
 					session1.setAttribute("parking", parkingCheckBox);
 					out.println(" ");
 					if(parkingCheckBox != null){
-						out.println(parkingCheckBox);
+						out.println(parkingCheckBox);	
+						Double parkingPrice = 19.99 * nightsStaying;
+						roomAmt = roomAmt + parkingPrice;
 					}
 					
 				}
+				out.println("<br /> <br /><B>Summary:</B> ");
+				out.println("<br />The loyalty points you will earn: " + loyalty_points_earned);
+				
+				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
+				out.println("<br />The total is: " + roomAmtCurrency);
 				
 				%>
 				<br><br>
