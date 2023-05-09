@@ -77,12 +77,13 @@ if (con != null){
 		<a href="existingreservation.jsp" id="existingRev">Existing Reservation</a>
 		<br />
 		<br />
-		
+		<!--
 		<label id="langLabel">Choose Language:</label>
 		<select name="Language" id="lang">
 			  <option value="english">English</option>
 			  <option value="espanol">Espanol</option>
-		</select>	
+		</select>
+		-->	
 
 	</div>
 

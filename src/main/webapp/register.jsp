@@ -7,7 +7,7 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="PageStructure/style.css">
 <%@include file="PageStructure/topPage.jsp"%>
-<%@include file="PageStructure/bottomPage.jsp"%>
+
 <%@page import="java.sql.*,java.util.*"%>
 
 <title>Register Account</title>
@@ -30,7 +30,7 @@
 				<br>
 				<br> <label>Last Name:</label><br> <input type="text"
 					name="lname" required="required"/> <br>
-				<br> <label>Email:</label><br> <input type="text"
+				<br> <label>Email:</label><br> <input type="email"
 					name="email" required="required"/><br>
 				<br> <label>Phone:</label><br> <input type="text"
 					name="phone" required="required"/><br>
@@ -39,10 +39,10 @@
 				<br> <label>Zip:</label><br> <input type="text" name="zip" required="required"/>
 				<br>
 				<br> <label>Password: <br>At least 8 characters with 1 upper and 1 lowercase letter</label><br> <input type="password"
-					name="password" required="required" pattern="^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\\d]{8,}$"/> <br>
+					name="password" required="required" pattern="^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d!@#$%^&*-=]{8,}$"/> <br>
 				
 				<br> <label>Confirm Password:</label><br> <input type="password"
-					name="passwordConfirm" required="required" pattern="^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\\d]{8,}$"/> <br><br>
+					name="passwordConfirm" required="required" pattern="^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d!@#$%^&*-=]{8,}$"/> <br><br>
 					
 				<input type="submit"/>
 				
@@ -57,6 +57,8 @@
 	<%
 	}
 	%>
-
+	<footer style="position: relative; box-sizing: border-box; bottom: 0px; text-align: center; left: 0; right: 0; color: white; font-size: 10pt;">
+	   &copy Copyright Charlie Team 2023
+	</footer>
 </body>
 </html>

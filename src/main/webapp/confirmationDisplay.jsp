@@ -120,7 +120,7 @@
 		System.out.println(e);
 	}
 	
-/*	
+	/*
 	try{
 		ResultSet rs = stmt.executeQuery("SELECT rooms.room_amount FROM rooms WHERE room_id = " + room_sizeInt);
 		if(rs.next()){
@@ -156,7 +156,25 @@
 		
 							</style>
 
-				<h2>Here's Your Results!</h2>
+				<!-- <h2>Here's Your Results!</h2> -->
+				
+				<%
+				try{
+					
+					ResultSet rs = stmt.executeQuery("SELECT users.email, reservation.reservation_id from users join reservation where users.user_id = " + user_id);
+					int counter = 0;
+					while(rs.next()){
+						counter = counter + 1;
+						//int rowCount = rs.getRow();
+						//System.out.println("size is " + rowCount);
+					}
+					out.println("<h2> Reservation ID #: " + counter + "</h2>");
+				}
+				catch (Exception e){
+					System.out.println(e);
+				}
+				
+				%>
 				<B>Available Property: <%out.println(hotelFL); %></B>
 				<br>
 				<B>Location: <%out.println(country); %></B>
@@ -186,12 +204,32 @@
 				<br>
 				<%
 				
-
+				if (wifiCheckBox != "" || wifiCheckBox != null) {
+					out.println(" ");
+					if(wifiCheckBox != null){
+						out.println(wifiCheckBox);
+					}			
+				}
+				if (breakfastCheckBox != "" || breakfastCheckBox != null) {
+					out.println(" ");
+					if(breakfastCheckBox != null){
+						out.println(breakfastCheckBox);
+					}
+				}
+				
+				if (parkingCheckBox != "" || parkingCheckBox != null) {
+					out.println(" ");
+					if(parkingCheckBox != null){
+						out.println(parkingCheckBox);
+					}
+				}
+				
 				//roomAmt = roomAmt * nightsStaying;
 				int loyalty_points_earned = 150;
 				loyalty_points_earned = loyalty_points_earned * nightsStaying;
-				stmt.executeUpdate("UPDATE users SET loyalty_points = loyalty_points + " + loyalty_points_earned + " WHERE user_id = " + user_id);
-
+				//stmt.executeUpdate("UPDATE users SET loyalty_points = loyalty_points + " + loyalty_points_earned + " WHERE user_id = " + user_id);
+			
+				
 				System.out.println(roomAmt);
 				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
 				
@@ -199,9 +237,9 @@
 				out.println("<br />The loyalty points you earned: " + loyalty_points_earned);
 				out.println("<br />The total is: " + roomAmtCurrency);
 				
-				stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, points_earned, price_total)" 
-				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 1 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + loyalty_points_earned + "', '" + roomAmtCurrency + "')");
-				response.sendRedirect("confirmationDisplay.jsp");
+				//stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, price_total)" 
+				//+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 1 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmtCurrency + "')");
+				
 				%>
 				<br><br>
 				
@@ -240,7 +278,26 @@
 								}
 							</style>
 
-				<h2>Here's Your Results!</h2>
+				<!-- <h2>Here's Your Results!</h2>-->
+				
+				<%
+				try{
+					
+					ResultSet rs = stmt.executeQuery("SELECT users.email, reservation.reservation_id from users join reservation where users.user_id = " + user_id);
+					int counter = 0;
+					while(rs.next()){
+						counter = counter + 1;
+						//int rowCount = rs.getRow();
+						//System.out.println("size is " + rowCount);
+					}
+					out.println("<h2> Reservation ID #: " + counter + "</h2>");
+				}
+				catch (Exception e){
+					System.out.println(e);
+				}
+				
+				%>
+				
 				<B>Available Property: <%out.println(hotelNE); %></B>
 				<br>
 				<B>Location: <%out.println(country); %></B>
@@ -269,11 +326,29 @@
 				<B>Amenities:</B>
 				<br>
 				<%
+				if (wifiCheckBox != "" || wifiCheckBox != null) {
+					out.println(" ");
+					if(wifiCheckBox != null){
+						out.println(wifiCheckBox);
+					}			
+				}
+				if (breakfastCheckBox != "" || breakfastCheckBox != null) {
+					out.println(" ");
+					if(breakfastCheckBox != null){
+						out.println(breakfastCheckBox);
+					}
+				}
 				
+				if (parkingCheckBox != "" || parkingCheckBox != null) {
+					out.println(" ");
+					if(parkingCheckBox != null){
+						out.println(parkingCheckBox);
+					}
+				}
 				
 				int loyalty_points_earned = 150;
 				loyalty_points_earned = loyalty_points_earned * nightsStaying;
-				stmt.executeUpdate("UPDATE users SET loyalty_points = loyalty_points + " + loyalty_points_earned + " WHERE user_id = " + user_id);
+				//stmt.executeUpdate("UPDATE users SET loyalty_points = loyalty_points + " + loyalty_points_earned + " WHERE user_id = " + user_id);
 				
 
 				System.out.println(roomAmt);
@@ -283,9 +358,9 @@
 				out.println("<br />The loyalty points you earned: " + loyalty_points_earned);
 				out.println("<br />The total is: " + roomAmtCurrency);
 				
-				stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, points_earned, price_total)" 
-				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 2 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + loyalty_points_earned + "', '" + roomAmtCurrency + "')");
-				response.sendRedirect("confirmationDisplay.jsp");
+				//stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, price_total)" 
+				//+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 2 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmtCurrency + "')");
+				
 				%>
 				<br><br>
 				
@@ -320,7 +395,26 @@
 								}
 							</style>
 
-				<h2>Here's Your Results!</h2>
+				<!-- <h2>Here's Your Results!</h2>-->
+				
+				<%
+				try{
+					
+					ResultSet rs = stmt.executeQuery("SELECT users.email, reservation.reservation_id from users join reservation where users.user_id = " + user_id);
+					int counter = 0;
+					while(rs.next()){
+						counter = counter + 1;
+						//int rowCount = rs.getRow();
+						//System.out.println("size is " + rowCount);
+					}
+					out.println("<h2> Reservation ID #: " + counter + "</h2>");
+				}
+				catch (Exception e){
+					System.out.println(e);
+				}
+				
+				%>
+				
 				<B>Available Property: <%out.println(hotelAZ); %></B>
 				<br>
 				<B>Location: <%out.println(country); %></B>
@@ -350,12 +444,30 @@
 				<br>
 				<%
 				
+				if (wifiCheckBox != "" || wifiCheckBox != null) {
+					out.println(" ");
+					if(wifiCheckBox != null){
+						out.println(wifiCheckBox);
+					}			
+				}
+				if (breakfastCheckBox != "" || breakfastCheckBox != null) {
+					out.println(" ");
+					if(breakfastCheckBox != null){
+						out.println(breakfastCheckBox);
+					}
+				}
+				
+				if (parkingCheckBox != "" || parkingCheckBox != null) {
+					out.println(" ");
+					if(parkingCheckBox != null){
+						out.println(parkingCheckBox);
+					}
+				}
 				
 				int loyalty_points_earned = 150;
 				loyalty_points_earned = loyalty_points_earned * nightsStaying;
-				stmt.executeUpdate("UPDATE users SET loyalty_points = loyalty_points + " + loyalty_points_earned + " WHERE user_id = " + user_id);
+				//stmt.executeUpdate("UPDATE users SET loyalty_points = loyalty_points + " + loyalty_points_earned + " WHERE user_id = " + user_id);
 				
-
 				System.out.println(roomAmt);
 				String roomAmtCurrency = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(roomAmt);
 				
@@ -363,9 +475,9 @@
 				out.println("<br />The loyalty points you earned: " + loyalty_points_earned);
 				out.println("<br />The total is: " + roomAmtCurrency);
 				
-				stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, points_earned, price_total)" 
-				+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 3 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + loyalty_points_earned + "', '" + roomAmtCurrency + "')");
-				response.sendRedirect("confirmationDisplay.jsp");
+				//stmt.executeUpdate("INSERT INTO reservation(user_id, check_in, check_out, hotel_id, amenity_wifi, amenity_breakfast, amenity_parking, number_of_guests, room_id, price_total)" 
+				//+ " VALUES('" + user_id + "', '" + arrive + "', '" + depart + "', '" + 3 +"', '" + wifiForSQL + "', '" + breakfastForSQL + "', '" + parkingForSQL + "', '" + numberOfGuests + "', '" + room_sizeInt + "', '" + roomAmtCurrency + "')");
+				
 				%>
 				<br><br>
 				

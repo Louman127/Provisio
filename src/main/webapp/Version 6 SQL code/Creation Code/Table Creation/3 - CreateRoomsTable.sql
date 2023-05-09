@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS rooms (
+
+room_id INT NOT NULL AUTO_INCREMENT, 
+
+PRIMARY KEY (room_id), 
+
+room_size VARCHAR(255) NOT NULL,
+room_amount VARCHAR (255) NOT NULL
+
+);

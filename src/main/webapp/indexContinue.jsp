@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="PageStructure/style.css" media="screen">
 <%@include file="PageStructure/topPage.jsp"%>
-<%@include file="PageStructure/bottomPage.jsp"%>
+
 
 </head>
 <body>
@@ -26,12 +26,7 @@
 		<div id="posterIndex">
 		
 		<%
-		
-		
-		
-		
-		
-		
+			
 		String select;
 		String orlando;
 		String omaha;
@@ -57,7 +52,6 @@
 			System.out.println(e);
 		}
 		
-	
 		String state = "";
 		String city = "";
 		String zip = "";
@@ -99,25 +93,31 @@
 		String kids = (String) session1.getAttribute("babies");
 		String rm_size = (String) session1.getAttribute("rm_size");
 		
-		Double roomAmt = 0.00;
+		Double roomAmt = (Double)session1.getAttribute("roomAmt");
 		
 		int room_sizeInt = Integer.valueOf(rm_size);
 		String roomSizeDisplay = "";
+		
+		
 		if(room_sizeInt == 4){
 			roomSizeDisplay = "Double";
-			roomAmt = 115.0;
+			//roomAmt = 115.0*1.05;
+			
 		}
 		if(room_sizeInt == 3){
 			roomSizeDisplay = "Queen";
-			roomAmt = 125.0;
+			//roomAmt =125.0*1.05;
+			
 		}
 		if(room_sizeInt == 2){
 			roomSizeDisplay = "Double Queen";
-			roomAmt = 150.0;
+			//roomAmt =150.0*1.05;
+			
 		}
 		if(room_sizeInt == 1){
 			roomSizeDisplay = "King";
-			roomAmt = 165.0;
+			//roomAmt = 165.0*1.05;
+			
 		}
 		
 		
@@ -125,17 +125,18 @@
 			System.out.println("Please make a valid selection.");
 			out.println("Please make a selection");
 			%>
-					<style>
+<!-- 					<style>
 						#posterIndex{
 							display: inline-block;
 							padding: 50px;
 							margin-top: 250px;
 							margin-left: 20%;
-							background-color:rgba(21, 70, 153, .8);
+							background-color: rgba(145, 145, 145, 0.8);
+							/*background-color:rgba(21, 70, 153, .8);*/
 							border-radius: 10px 10px 10px 10px;
     						box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 						}
-					</style>
+					</style> -->
 					<br><br>
 					<form action="index.jsp" method="get">
 				    	<button type="submit">Go Back</button>
@@ -146,22 +147,25 @@
 
 		if (destination.equalsIgnoreCase("orlando")) {
 		%>
-							<style>
+<!-- 							<style>
 								#posterIndex{
 									display: inline-block;
 									padding: 40px;
 									margin-top: 240px;
 									margin-left: 20%;
-									background-color:rgba(21, 70, 153, .8);
+									background-color: rgba(145, 145, 145, 0.8);
+									/*background-color:rgba(21, 70, 153, .8);*/
 									margin-bottom: 40px;
 									border-radius: 10px 10px 10px 10px;
     								box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 								}
 		
-							</style>
+							</style> -->
 
 				<h2>Here's Your Results!</h2>
 				<B>Available Property: <%out.println(hotelFL); %></B>
+				<br>
+				<img id='florida_pic' src='PageStructure/florida_hotel_300.gif'>
 				<br>
 				<B>Location: <%out.println(country); %></B>
 				<br>
@@ -194,7 +198,7 @@
 				LocalDate dateOut = LocalDate.parse(depart);
 				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
 				
-				roomAmt = roomAmt * nightsStaying;
+				
 				int loyalty_points_earned = 150;
 				loyalty_points_earned = loyalty_points_earned * nightsStaying;
 				
@@ -205,8 +209,8 @@
 					
 					if(wifiCheckBox != null){
 						out.println(wifiCheckBox);
-						Double wifiPrice = 12.99;
-						roomAmt = roomAmt + wifiPrice;
+						//Double wifiPrice = 12.99;
+						//roomAmt = roomAmt + wifiPrice;
 					}
 				
 				
@@ -217,8 +221,8 @@
 					
 					if(breakfastCheckBox != null){
 						out.println(breakfastCheckBox);
-						Double breakfastPrice = 8.99 * nightsStaying;
-						roomAmt = roomAmt + breakfastPrice;
+						//Double breakfastPrice = 8.99 * nightsStaying;
+						//roomAmt = roomAmt + breakfastPrice;
 					}
 				}
 				
@@ -227,11 +231,12 @@
 					out.println(" ");
 					if(parkingCheckBox != null){
 						out.println(parkingCheckBox);
-						Double parkingPrice = 19.99 * nightsStaying;
-						roomAmt = roomAmt + parkingPrice;
+						//Double parkingPrice = 19.99 * nightsStaying;
+						//roomAmt = roomAmt + parkingPrice;
 					}
 					
 				}
+				
 				out.println("<br /> <br /><B>Summary:</B> ");
 				out.println("<br />The loyalty points you will earn: " + loyalty_points_earned);
 				
@@ -280,21 +285,24 @@
 		<%
 		if (destination.equalsIgnoreCase("omaha")) {
 		%>
-							<style>
+<!-- 							<style>
 								#posterIndex{
 									display: inline-block;
 									padding: 40px;
 									margin-top: 240px;
 									margin-left: 20%;
-									background-color:rgba(21, 70, 153, .8);
+									background-color: rgba(145, 145, 145, 0.8);
+									/*background-color:rgba(21, 70, 153, .8);*/
 									margin-bottom: 40px;
 									border-radius: 10px 10px 10px 10px;
     								box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 								}
-							</style>
+							</style> -->
 
 				<h2>Here's Your Results!</h2>
 				<B>Available Property: <%out.println(hotelNE); %></B>
+				<br>
+				<img id='omaha_pic' src='PageStructure/omaha_hotel_300.gif'>
 				<br>
 				<B>Location: <%out.println(country); %></B>
 				<br>
@@ -327,7 +335,7 @@
 				LocalDate dateOut = LocalDate.parse(depart);
 				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
 				
-				roomAmt = roomAmt * nightsStaying;
+				
 				int loyalty_points_earned = 150;
 				loyalty_points_earned = loyalty_points_earned * nightsStaying;
 				
@@ -338,8 +346,8 @@
 					
 					if(wifiCheckBox != null){
 						out.println(wifiCheckBox);
-						Double wifiPrice = 12.99;
-						roomAmt = roomAmt + wifiPrice;
+						//Double wifiPrice = 12.99;
+						//roomAmt = roomAmt + wifiPrice;
 					}
 				
 				
@@ -350,8 +358,8 @@
 					
 					if(breakfastCheckBox != null){
 						out.println(breakfastCheckBox);
-						Double breakfastPrice = 8.99 * nightsStaying;
-						roomAmt = roomAmt + breakfastPrice;
+						//Double breakfastPrice = 8.99 * nightsStaying;
+						//roomAmt = roomAmt + breakfastPrice;
 					}
 				}
 				
@@ -360,8 +368,8 @@
 					out.println(" ");
 					if(parkingCheckBox != null){
 						out.println(parkingCheckBox);
-						Double parkingPrice = 19.99 * nightsStaying;
-						roomAmt = roomAmt + parkingPrice;
+						//Double parkingPrice = 19.99 * nightsStaying;
+						//roomAmt = roomAmt + parkingPrice;
 					}
 					
 				}
@@ -409,21 +417,24 @@
 		<%
 		if (destination.equalsIgnoreCase("grand")) {
 		%>
-							<style>
+<!-- 							<style>
 								#posterIndex{
 									display: inline-block;
 									padding: 40px;
 									margin-top: 240px;
 									margin-left: 20%;
-									background-color:rgba(21, 70, 153, .8);
+									background-color: rgba(145, 145, 145, 0.8);
+									/*background-color:rgba(21, 70, 153, .8);*/
 									margin-bottom: 40px;
 									border-radius: 10px 10px 10px 10px;
     								box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 								}
-							</style>
+							</style> -->
 
 				<h2>Here's Your Results!</h2>
 				<B>Available Property: <%out.println(hotelAZ); %></B>
+				<br>
+				<img id='arizona_pic' src='PageStructure/arizona_hotel_300.gif'>
 				<br>
 				<B>Location: <%out.println(country); %></B>
 				<br>
@@ -456,7 +467,7 @@
 				LocalDate dateOut = LocalDate.parse(depart);
 				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
 				
-				roomAmt = roomAmt * nightsStaying;
+				
 				int loyalty_points_earned = 150;
 				loyalty_points_earned = loyalty_points_earned * nightsStaying;
 				
@@ -467,8 +478,8 @@
 					
 					if(wifiCheckBox != null){
 						out.println(wifiCheckBox);
-						Double wifiPrice = 12.99;
-						roomAmt = roomAmt + wifiPrice;
+						//Double wifiPrice = 12.99;
+						//roomAmt = roomAmt + wifiPrice;
 					}
 				
 				
@@ -479,8 +490,8 @@
 					
 					if(breakfastCheckBox != null){
 						out.println(breakfastCheckBox);
-						Double breakfastPrice = 8.99 * nightsStaying;
-						roomAmt = roomAmt + breakfastPrice;
+						//Double breakfastPrice = 8.99 * nightsStaying;
+						//roomAmt = roomAmt + breakfastPrice;
 					}
 				}
 				
@@ -489,8 +500,8 @@
 					out.println(" ");
 					if(parkingCheckBox != null){
 						out.println(parkingCheckBox);
-						Double parkingPrice = 19.99 * nightsStaying;
-						roomAmt = roomAmt + parkingPrice;
+						//Double parkingPrice = 19.99 * nightsStaying;
+						//roomAmt = roomAmt + parkingPrice;
 					}
 					
 				}
@@ -548,6 +559,13 @@
 
 	</div>
 
+<!-- 	<footer style="position: absolute; box-sizing: border-box; bottom: -100px; text-align: center; left: 0; right: 0; color: white; font-size: 10pt;">
+	   &copy Copyright Charlie Team 2023
+	</footer> -->
+	
+	<footer style="position: absolute; box-sizing: border-box; bottom: -100px; text-align: center; left: 0; right: 0; color: white; font-size: 10pt; margin-bottom: -30%;">
+	   &copy Copyright Charlie Team 2023
+	</footer>
 </body>
 </html>
 

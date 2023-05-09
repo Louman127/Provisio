@@ -10,6 +10,7 @@
 <%@page import="java.text.NumberFormat"%>
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,7 @@
 
 <link rel="stylesheet" href="PageStructure/style.css" media="screen">
 <%@include file="PageStructure/topPage.jsp"%>
-<%@include file="PageStructure/bottomPage.jsp"%>
+
 
 
 
@@ -77,9 +78,9 @@
 					</tr>
 					<tr>
 						<td><label><strong class="asterik">*</strong>Adults <br><input
-								type="number" name="grown" size="3" required="required"></label></td>
+								type="number" name="grown" size="3" min="0" required="required"></label></td>
 						<td><label><strong class="asterik">*</strong>Children
-								<br><input type="number" name="babies" size="3" required="required"></label>
+								<br><input type="number" name="babies" size="3" min="0" required="required"></label>
 						</td>
 					</tr>
 					
@@ -96,10 +97,10 @@
 								
 						<select name="rm_size">
 								
-								<option value="4">Double $115.00</option>
-								<option value="3">Queen $125.00</option>
-								<option value="2">Double Queen $150.00</option>
-								<option value="1">King $165.00</option>
+								<option value="4">Double $120.75</option> <!-- $115.00 -->
+								<option value="3">Queen $131.25</option> <!-- $125.00 -->
+								<option value="2">Double Queen $157.50</option> <!-- $150.00 -->
+								<option value="1">King $173.25</option> <!-- $165.00 -->
 								
 
 						</select></td>
@@ -131,10 +132,13 @@
 %>
 
 
-		<div id="posterIndex">
+		
 		
 		<%
 		if(request.getMethod().equals("POST")){
+		%>
+			<div id="posterIndex">
+		<%
 		destination = request.getParameter("properties");
 		
 		// Getting parameters from HTML and setting to session
@@ -155,6 +159,7 @@
 			System.out.println(e);
 		}
 		
+		// Creating variables need for display
 		String state = "";
 		String city = "";
 		String zip = "";
@@ -167,6 +172,7 @@
 		String hotelNE = "Nebraska Provisio Hotel";
 		String hotelAZ = "Arizona Provisio Hotel";
 		
+		// Getting parameters
 		String wifiCheckBox = request.getParameter("wifi");
 		String breakfastCheckBox = request.getParameter("breakfast");
 		String parkingCheckBox = request.getParameter("parking");
@@ -182,33 +188,71 @@
 		String adults = request.getParameter("grown");
 		String kids = request.getParameter("babies");
 		String rooms = request.getParameter("rooms");
-		
 		String rm_size = request.getParameter("rm_size");
-		Double roomAmt = 0.00;
 		
+		// Room amount with holiday that may be added. roomAmt will be converted to USD when it inserts into DB.
+		Double roomAmt = 0.00;
+        Double holidayAmt=0.00;
+		
+        // getting month and day from date
+        String[] values =arrive.split("-");
+        int arrmonth =Integer.parseInt(values[1]);
+        int arrday= Integer.parseInt(values[2]);
+        String[] val =depart.split("-");
+        int depday= Integer.parseInt(val[2]);
+        int depmonth =Integer.parseInt(val[1]);
 		int room_sizeInt = Integer.valueOf(rm_size);
 		String roomSizeDisplay = "";
+		
+		// Price for rooms. With added 5% increase on base sales
 		if(room_sizeInt == 4){
 			roomSizeDisplay = "Double";
-			roomAmt = 115.0;
+			roomAmt = 115.0*1.05;
 			
 		}
 		if(room_sizeInt == 3){
 			roomSizeDisplay = "Queen";
-			roomAmt = 125.0;
+			roomAmt =125.0*1.05;
 			
 		}
 		if(room_sizeInt == 2){
 			roomSizeDisplay = "Double Queen";
-			roomAmt = 150.0;
+			roomAmt =150.0*1.05;
 			
 		}
 		if(room_sizeInt == 1){
 			roomSizeDisplay = "King";
-			roomAmt = 165.0;
+			roomAmt = 165.0*1.05;
 			
 		}
 		
+		
+		// Formula to determine additional holiday fees at 5% per night
+		if(arrmonth <= 07  && depmonth >= 07){
+            if(arrday <= 04 && depday >= 04){
+				    holidayAmt = roomAmt*.05 + holidayAmt;
+            }
+		}	
+		
+		if(arrmonth <= 12  && depmonth >= 12){
+            if(arrday <= 24 && depday >= 24){
+            		holidayAmt = roomAmt*.05 + holidayAmt;
+            }
+		}
+		
+		if(arrmonth <= 12  && depmonth >= 12){
+            if(arrday <= 25 && depday >= 25){
+            		holidayAmt = roomAmt*.05 + holidayAmt;
+            }
+		}
+		
+		if(arrmonth <= 12  && depmonth >= 12){
+            if(arrday <= 31 && depday >= 31){
+				    holidayAmt += roomAmt*.05+ holidayAmt;	   
+            }
+		}
+		
+		// Set these attributes to be retrieved from the session
 		session1.setAttribute("properties", destination);
 		session1.setAttribute("selection", select);
 		session1.setAttribute("orlando", orlando);
@@ -224,17 +268,18 @@
 			System.out.println("Please make a valid selection.");
 			out.println("Please make a selection");
 			%>
-					<style>
+<!-- 					<style>
 						#posterIndex{
 							display: inline-block;
 							padding: 50px;
 							margin-top: 250px;
 							margin-left: 20%;
-							background-color:rgba(21, 70, 153, .8);
+							background-color: rgba(145, 145, 145, 0.8);
+							/*background-color:rgba(21, 70, 153, .8);*/
 							border-radius: 10px 10px 10px 10px;
     						box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 						}
-					</style>
+					</style> -->
 					<br><br>
 					<form action="index.jsp" method="get">
 				    	<button type="submit">Go Back</button>
@@ -245,22 +290,38 @@
 
 		if (destination.equalsIgnoreCase("orlando")) {
 		%>
+<!-- 							<style>
+								#posterIndex{
+								    border: 1px solid black;
+								    padding-left: 15px;
+								    padding-bottom: 15px;
+								    width: 500px;
+								    background-color: rgba(145, 145, 145, 0.8);
+								    margin-left: 32%;
+								    margin-top: 240px;
+								} 
+								
+								
+								</style> 
 							<style>
 								#posterIndex{
 									display: inline-block;
 									padding: 40px;
 									margin-top: 240px;
 									margin-left: 20%;
-									background-color:rgba(21, 70, 153, .8);
+									background-color: rgba(145, 145, 145, 0.8);
+									/*background-color:rgba(21, 70, 153, .8);*/
 									margin-bottom: 40px;
 									border-radius: 10px 10px 10px 10px;
     								box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 								}
 		
-							</style>
+							</style>-->
 
 				<h2>Here's Your Results!</h2>
 				<B>Available Property: <%out.println(hotelFL); %></B>
+				<br>
+				<img id='florida_pic' src='PageStructure/florida_hotel_300.gif'>
 				<br>
 				<B>Location: <%out.println(country); %></B>
 				<br>
@@ -289,12 +350,14 @@
 				<br>
 				<%
 				
+				// perform operation to determine nights staying
 				LocalDate dateIn = LocalDate.parse(arrive);
 				LocalDate dateOut = LocalDate.parse(depart);
 				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
 
-
-				roomAmt = roomAmt * nightsStaying;
+				// This will add roomAmt to the holiday fee after the roomAmt is multiplied by number of nights
+				roomAmt = (roomAmt * nightsStaying)+ holidayAmt;
+				
 				int loyalty_points_earned = 150;
 				loyalty_points_earned = loyalty_points_earned * nightsStaying;
 				
@@ -332,6 +395,10 @@
 					}
 					
 				}
+				
+			/************************** Room Amount being set ***************************************************/	
+				session1.setAttribute("roomAmt", roomAmt);
+				
 				out.println("<br /> <br /><B>Summary:</B> ");
 				out.println("<br />The loyalty points you will earn: " + loyalty_points_earned);
 				
@@ -380,21 +447,24 @@
 		<%
 		if (destination.equalsIgnoreCase("omaha")) {
 		%>
-							<style>
+<!-- 							<style>
 								#posterIndex{
 									display: inline-block;
 									padding: 40px;
 									margin-top: 240px;
 									margin-left: 20%;
-									background-color:rgba(21, 70, 153, .8);
+									background-color: rgba(145, 145, 145, 0.8);
+									/*background-color:rgba(21, 70, 153, .8);*/
 									margin-bottom: 40px;
 									border-radius: 10px 10px 10px 10px;
     								box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 								}
-							</style>
+							</style> -->
 
 				<h2>Here's Your Results!</h2>
 				<B>Available Property: <%out.println(hotelNE); %></B>
+				<br>
+				<img id='omaha_pic' src='PageStructure/omaha_hotel_300.gif'>
 				<br>
 				<B>Location: <%out.println(country); %></B>
 				<br>
@@ -426,9 +496,10 @@
 				LocalDate dateIn = LocalDate.parse(arrive);
 				LocalDate dateOut = LocalDate.parse(depart);
 				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
-
-
-				roomAmt = roomAmt * nightsStaying;
+				
+				// This will add roomAmt to the holiday fee after the roomAmt is multiplied by number of nights
+				roomAmt = (roomAmt * nightsStaying)+ holidayAmt;
+				
 				int loyalty_points_earned = 150;
 				loyalty_points_earned = loyalty_points_earned * nightsStaying;
 				
@@ -466,6 +537,8 @@
 					}
 					
 				}
+				
+				session1.setAttribute("roomAmt", roomAmt);
 				out.println("<br /> <br /><B>Summary:</B> ");
 				out.println("<br />The loyalty points you will earn: " + loyalty_points_earned);
 				
@@ -510,21 +583,24 @@
 		<%
 		if (destination.equalsIgnoreCase("grand")) {
 		%>
-							<style>
+<!-- 							<style>
 								#posterIndex{
 									display: inline-block;
 									padding: 40px;
 									margin-top: 240px;
 									margin-left: 20%;
-									background-color:rgba(21, 70, 153, .8);
+									background-color: rgba(145, 145, 145, 0.8);
+									/*background-color:rgba(21, 70, 153, .8);*/
 									margin-bottom: 40px;
 									border-radius: 10px 10px 10px 10px;
     								box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 								}
-							</style>
+							</style> -->
 
 				<h2>Here's Your Results!</h2>
 				<B>Available Property: <%out.println(hotelAZ); %></B>
+				<br>
+				<img id='arizona_pic' src='PageStructure/arizona_hotel_300.gif'>
 				<br>
 				<B>Location: <%out.println(country); %></B>
 				<br>
@@ -557,8 +633,9 @@
 				LocalDate dateOut = LocalDate.parse(depart);
 				int nightsStaying = (int) (dateOut.toEpochDay() - dateIn.toEpochDay());
 
-
-				roomAmt = roomAmt * nightsStaying;
+				// This will add roomAmt to the holiday fee after the roomAmt is multiplied by number of nights
+				roomAmt = (roomAmt * nightsStaying)+ holidayAmt;
+				
 				int loyalty_points_earned = 150;
 				loyalty_points_earned = loyalty_points_earned * nightsStaying;
 				
@@ -596,6 +673,8 @@
 					}
 					
 				}
+				
+				session1.setAttribute("roomAmt", roomAmt);
 				out.println("<br /> <br /><B>Summary:</B> ");
 				out.println("<br />The loyalty points you will earn: " + loyalty_points_earned);
 				
@@ -649,8 +728,13 @@
 
 
 	</div>
+	<footer style="margin-top: 25%; position: relative; box-sizing: border-box; bottom: 0; text-align: center; left: 0; right: 0; color: white; font-size: 10pt;">
+	   &copy Copyright Charlie Team 2023
+	</footer> 
 
 </body>
+
+
 </html>
 
 <%-- 

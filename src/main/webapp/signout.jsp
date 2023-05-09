@@ -12,7 +12,7 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="PageStructure/style.css">
 <%@include file="PageStructure/topPageAtSignoutOnly.jsp"%>
-<%@include file="PageStructure/bottomPage.jsp"%>
+
 <title>Provisio Sign Out</title>
 </head>
 <body>
@@ -51,5 +51,8 @@
 
 	</div>
 
+	<footer style="position: absolute; box-sizing: border-box; bottom: 0px; text-align: center; left: 0; right: 0; color: white; font-size: 10pt;">
+	   &copy Copyright Charlie Team 2023
+	</footer>
 </body>
 </html>

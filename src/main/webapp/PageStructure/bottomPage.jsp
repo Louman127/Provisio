@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
 	<footer id="footer">
-	    Copyright None
-
+	   &copy Copyright Charlie Team 2023
+	
 
 	</footer>
 
