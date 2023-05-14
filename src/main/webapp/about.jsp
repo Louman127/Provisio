@@ -40,8 +40,9 @@
 		</div>
 		<br />
 		<div id="aboutPara">
-			<h3>Our Purpose</h3>
+			<h3 id="paraTime">Our Purpose</h3>
 			<br />
+			<p id="paraTime">
 			Every individual has a unique tale to tell, experiences to
 			share, and stories to unfold.
 			We are here because we believe travel is a force of good.
@@ -53,6 +54,7 @@
 			<br /> 
 			<i>The world begins with you, so take each chance you get
 			to broaden your horizons!</i> <br /> <br />
+			</p>
 		</div>
 	</div>
 	
@@ -62,7 +64,8 @@
 		</div>
 		<div id="aboutPara"> 
 			<h3>Who We Are</h3>
-			<br /> 
+			<br />
+			<p> 
 			We're just like you, travelers. From accross time zones,
 			hemispheres, cultures, and languages, we share the passion and joys
 			that come with traveling. Provisio was founded in 2023 by
@@ -74,6 +77,7 @@
 			<br /> 
 			<i>The journey, not the arrival, matters; but we might as well make
 			the arrival great too!</i> <br /> <br />
+			</p>
 			</div>	
 	</div>	
 
@@ -84,7 +88,8 @@
 		<div id="aboutPara">
 			<h3>What We Do</h3>
 			<br /> 
-			 We
+			<p>
+			We
 			want to build great experiences, memories, and connectinos between
 			travelers and our partners around the world. Every trip is uniquely
 			your's, as we help you orchestrate the best adventure possible.
@@ -93,6 +98,7 @@
 			<br /> 
 			<i>Let us find the right path for you to make the most
 			out of your journey!</i> <br />
+			</p>
 		</div>		
 	</div>
 	

@@ -217,12 +217,12 @@
     <%}%>
 <%}catch(SQLException e) {%>
        out.println(e);
- <%}%>
+ <%}%>+
  </div>
 
 
-	<!--<footer style="display: block; width: 100%; padding-top:1000px; margin-bottom: -100%;   position: absolute; box-sizing: border-box; bottom: 0; text-align: center; left: 0; right: 0; color: white; font-size: 10pt; z-index: -10;  ">
+	<div style='display: block; width: 100%; position: absolute; box-sizing: border-box; bottom: -200%; text-align: center; left: 0; right: 0; color: white; font-size: 10pt; z-index: -10;'>
 	   &copy Copyright Charlie Team 2023
-	</footer>-->
+	</div>
 </body>
 </html>

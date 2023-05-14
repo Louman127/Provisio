@@ -13,7 +13,7 @@
 	<header id="header">
 		<h1 id="headerWords"> <img src="PageStructure/provisio_200_1.gif"> </h1>
 	</header>
-
+<!--
 	<div id="leftbar">
 
 		<a href="signin.jsp" id="signin">Sign In</a>
@@ -22,6 +22,7 @@
 		<a href="register.jsp" id="register">or Register</a><br />
 
 	</div>
+-->
 
 	<div id="menuDiv">
 
@@ -29,9 +30,13 @@
 		<a href="about.jsp" id="aboutItem">About</a> 
 		<a href="locations.jsp" id="locationsItem">Locations</a> 
 		<a href="loyalty.jsp" id="loyaltyItem">Loyalty Points</a>
+		<a href="existingreservation.jsp" id="existingRev">Existing Reservation</a>
+		<a href="signin.jsp" id="signin">Sign In</a>
+		<a href="register.jsp" id="register">or Register</a>
 		
 	</div>
 
+<!--
 	<div id="rightbar">
 		
 		<%-- <a href="contactsupport.jsp" id="contact">Contact Support</a> --%>
@@ -46,9 +51,9 @@
 			  <option value="english">English</option>
 			  <option value="espanol">Espanol</option>
 		</select>
-		-->	
+		
 
 	</div>
-
+-->
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.Out"%>
 <%@page import="java.util.Locale"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -8,6 +9,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.format.*"%>
 <%@page import="java.text.NumberFormat"%>
+<%@page import="java.lang.Integer"%>
 
 
 
@@ -67,11 +69,18 @@
 						</select></td>
 						
 					</tr>
+					<%
+					LocalDate minimumDateSelector = LocalDate.now();
+					System.out.println(minimumDateSelector);
+					
+					
+					
+					%>
 					<tr>
 						<td><label><strong class="asterik">*</strong>From<br>
-								<input type="date" name="start" required="required"></label></td>
+								<input type="date" name="start" required="required" min="<%out.print(minimumDateSelector);%>"></label></td>
 						<td><label><strong class="asterik">*</strong>To<br>
-								<input type="date" name="finish" required="required"></label></td>
+								<input type="date" name="finish" required="required" min="<%out.print(minimumDateSelector);%>"></label></td>
 					</tr>
 					<tr>
 						<td>Number of People:</td>
@@ -135,12 +144,63 @@
 		
 		
 		<%
-		if(request.getMethod().equals("POST")){
-		%>
-			<div id="posterIndex">
-		<%
-		destination = request.getParameter("properties");
 		
+		
+		if(request.getMethod().equals("POST")){
+			
+			// Getting the dates
+			String startDateString = request.getParameter("start");
+			String endDateString = request.getParameter("finish");
+			
+			// Creating String Builder object to store date
+			StringBuilder startDateIntBuilder = new StringBuilder();
+			
+			// Creating String Builders for start date and end date aka check-in and check-out dates
+			// Also appending the date characters to the builders like yyyyddMM
+			startDateIntBuilder  = startDateIntBuilder.append(startDateString.charAt(0));
+			startDateIntBuilder  = startDateIntBuilder.append(startDateString.charAt(1));
+			startDateIntBuilder  = startDateIntBuilder.append(startDateString.charAt(2));
+			startDateIntBuilder  = startDateIntBuilder.append(startDateString.charAt(3));
+			
+			startDateIntBuilder  = startDateIntBuilder.append(startDateString.charAt(5));
+			startDateIntBuilder  = startDateIntBuilder.append(startDateString.charAt(6));
+			startDateIntBuilder  = startDateIntBuilder.append(startDateString.charAt(8));
+			startDateIntBuilder  = startDateIntBuilder.append(startDateString.charAt(9));
+			
+			StringBuilder endDateIntBuilder = new StringBuilder();
+			
+			endDateIntBuilder  = endDateIntBuilder.append(endDateString.charAt(0));
+			endDateIntBuilder  = endDateIntBuilder.append(endDateString.charAt(1));
+			endDateIntBuilder  = endDateIntBuilder.append(endDateString.charAt(2));
+			endDateIntBuilder  = endDateIntBuilder.append(endDateString.charAt(3));
+			
+			endDateIntBuilder  = endDateIntBuilder.append(endDateString.charAt(5));
+			endDateIntBuilder  = endDateIntBuilder.append(endDateString.charAt(6));
+			endDateIntBuilder  = endDateIntBuilder.append(endDateString.charAt(8));
+			endDateIntBuilder  = endDateIntBuilder.append(endDateString.charAt(9));
+			
+			// parsing the strings to Integers so they can be compared in the if statement
+			Integer startDateInt = Integer.parseInt(startDateIntBuilder.toString());
+			Integer endDateInt = Integer.parseInt(endDateIntBuilder.toString());
+			
+			System.out.println(startDateIntBuilder);
+			System.out.println(endDateIntBuilder);
+			
+			// checking to make sure the check-out date is greater than the check-in date
+			if(endDateInt <= startDateInt){
+
+				out.println("<script> alert('Check-out must be later than Check-in.\\nPlease Go back'); location='/Provisio/index.jsp'</script>");
+				
+			}
+		
+		%>
+		
+			<div id="posterIndex">
+				
+		<%
+
+		destination = request.getParameter("properties");
+				
 		// Getting parameters from HTML and setting to session
 		HttpSession session1 = request.getSession(true);
 		

@@ -101,10 +101,17 @@
 					
 					//System.out.println(builder1);
 					//out.println(display + display2 + "<br />" );
-			        out.println( "<tr id= '" + loyaltyTable + "'><td>");
-			        out.println( display + "</td><td>" + display2 + "</td><td>" + display3 + "</td>"
-			        		+ "<td>" + display4 + "</td>"  + "<td>" + display6 + "</td>" + "<td>" + display7 + "</td>" + "<td>" + display8 + "</td><td>" + display9 
-			        		+ "</td>  <td>" + builder1 +  "</td>  <td>" + builder2 + "</td> </tr>");
+			        out.println( "<tr id= '" + loyaltyTable + "'>");
+			        out.println("<td style='padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;'>" + display 
+			        		+ "</td><td style='padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;'>" + display2 
+			        		+ "</td><td style='padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;'>" + display3 + "</td>"
+			        		+ "<td style='padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; width: 10000px;'>" + display4 + "</td>"  
+			        		+ "<td style='padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;'>" + display6 + "</td>" 
+			        		+ "<td style='padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; width: 10000px;'>" + display7 
+			        		+ "</td>" + "<td style='padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;'>" + display8 
+			        		+ "</td><td style='padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;'>" + display9 
+			        		+ "</td><td style='padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; width: 10000px;'>" + builder1 
+			        		+  "</td><td style='padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; width: 10000px;'>" + builder2 + "</td> </tr>");
 			        
 			        if (i % 2 == 0){
 			        	loyaltyTable = "loyaltyTable1"; 
